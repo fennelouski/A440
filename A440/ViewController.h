@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) UIView *pianoButton, *violinButton, *sineWaveButton, *frenchHornButton;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 @end
 
