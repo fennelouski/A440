@@ -17,15 +17,15 @@
 		906EFBDF1A9E3A6C00D4E03A /* A440Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBDE1A9E3A6C00D4E03A /* A440Tests.m */; };
 		906EFBEA1A9E3DB800D4E03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906EFBE81A9E3DB800D4E03A /* AVFoundation.framework */; };
 		906EFBEB1A9E3DB800D4E03A /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906EFBE91A9E3DB800D4E03A /* AVKit.framework */; };
-		906EFBEF1A9E3F9600D4E03A /* Oboe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEC1A9E3F9600D4E03A /* Oboe@2x.png */; };
-		906EFBF01A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png */; };
-		906EFBF11A9E3F9600D4E03A /* Violin_Geige@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEE1A9E3F9600D4E03A /* Violin_Geige@2x.png */; };
+		906EFBEF1A9E3F9600D4E03A /* Oboe.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEC1A9E3F9600D4E03A /* Oboe.png */; };
+		906EFBF01A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png */; };
+		906EFBF11A9E3F9600D4E03A /* Violin_Geige.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEE1A9E3F9600D4E03A /* Violin_Geige.png */; };
 		906EFBF31A9E40F800D4E03A /* sineWave.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF21A9E40F800D4E03A /* sineWave.wav */; };
 		906EFBF51A9E48D900D4E03A /* violin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF41A9E48D900D4E03A /* violin.wav */; };
 		906EFBF71A9E49A800D4E03A /* piano.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF61A9E49A800D4E03A /* piano.wav */; };
-		906EFBF91A9E4D4800D4E03A /* Sine Wave Image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF81A9E4D4800D4E03A /* Sine Wave Image@2x.png */; };
+		906EFBF91A9E4D4800D4E03A /* Sine Wave Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */; };
 		906EFBFB1A9E4FE200D4E03A /* frenchHorn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFA1A9E4FE200D4E03A /* frenchHorn.wav */; };
-		906EFBFD1A9E503700D4E03A /* FrenchHorn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn@2x.png */; };
+		906EFBFD1A9E503700D4E03A /* FrenchHorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn.png */; };
 		906EFC021A9E510400D4E03A /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */; };
 		906EFC031A9E510400D4E03A /* NSString+AppFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */; };
 /* End PBXBuildFile section */
@@ -57,15 +57,15 @@
 		906EFBDE1A9E3A6C00D4E03A /* A440Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = A440Tests.m; sourceTree = "<group>"; };
 		906EFBE81A9E3DB800D4E03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		906EFBE91A9E3DB800D4E03A /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		906EFBEC1A9E3F9600D4E03A /* Oboe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Oboe@2x.png"; path = "Icons/Oboe@2x.png"; sourceTree = "<group>"; };
-		906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png"; path = "Icons/Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png"; sourceTree = "<group>"; };
-		906EFBEE1A9E3F9600D4E03A /* Violin_Geige@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Violin_Geige@2x.png"; path = "Icons/Violin_Geige@2x.png"; sourceTree = "<group>"; };
+		906EFBEC1A9E3F9600D4E03A /* Oboe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Oboe.png; path = Icons/Oboe.png; sourceTree = "<group>"; };
+		906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png"; path = "Icons/Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png"; sourceTree = "<group>"; };
+		906EFBEE1A9E3F9600D4E03A /* Violin_Geige.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Violin_Geige.png; path = Icons/Violin_Geige.png; sourceTree = "<group>"; };
 		906EFBF21A9E40F800D4E03A /* sineWave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sineWave.wav; path = "Audio Files/sineWave.wav"; sourceTree = "<group>"; };
 		906EFBF41A9E48D900D4E03A /* violin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = violin.wav; path = "Audio Files/violin.wav"; sourceTree = "<group>"; };
 		906EFBF61A9E49A800D4E03A /* piano.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = piano.wav; path = "Audio Files/piano.wav"; sourceTree = "<group>"; };
-		906EFBF81A9E4D4800D4E03A /* Sine Wave Image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Sine Wave Image@2x.png"; path = "Icons/Sine Wave Image@2x.png"; sourceTree = "<group>"; };
+		906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Sine Wave Image.png"; path = "Icons/Sine Wave Image.png"; sourceTree = "<group>"; };
 		906EFBFA1A9E4FE200D4E03A /* frenchHorn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = frenchHorn.wav; path = "Audio Files/frenchHorn.wav"; sourceTree = "<group>"; };
-		906EFBFC1A9E503700D4E03A /* FrenchHorn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FrenchHorn@2x.png"; path = "Icons/FrenchHorn@2x.png"; sourceTree = "<group>"; };
+		906EFBFC1A9E503700D4E03A /* FrenchHorn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FrenchHorn.png; path = Icons/FrenchHorn.png; sourceTree = "<group>"; };
 		906EFBFE1A9E510400D4E03A /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
 		906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
 		906EFC001A9E510400D4E03A /* NSString+AppFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AppFunctions.h"; sourceTree = "<group>"; };
@@ -132,13 +132,13 @@
 		906EFBBF1A9E3A6C00D4E03A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				906EFBEC1A9E3F9600D4E03A /* Oboe@2x.png */,
-				906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png */,
-				906EFBEE1A9E3F9600D4E03A /* Violin_Geige@2x.png */,
-				906EFBF81A9E4D4800D4E03A /* Sine Wave Image@2x.png */,
+				906EFBEC1A9E3F9600D4E03A /* Oboe.png */,
+				906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png */,
+				906EFBFC1A9E503700D4E03A /* FrenchHorn.png */,
+				906EFBEE1A9E3F9600D4E03A /* Violin_Geige.png */,
+				906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */,
 				906EFBC01A9E3A6C00D4E03A /* Info.plist */,
 				906EFBC11A9E3A6C00D4E03A /* main.m */,
-				906EFBFC1A9E503700D4E03A /* FrenchHorn@2x.png */,
 				906EFBF21A9E40F800D4E03A /* sineWave.wav */,
 				906EFBF41A9E48D900D4E03A /* violin.wav */,
 				906EFBF61A9E49A800D4E03A /* piano.wav */,
@@ -255,18 +255,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				906EFBF11A9E3F9600D4E03A /* Violin_Geige@2x.png in Resources */,
-				906EFBF91A9E4D4800D4E03A /* Sine Wave Image@2x.png in Resources */,
+				906EFBF11A9E3F9600D4E03A /* Violin_Geige.png in Resources */,
+				906EFBF91A9E4D4800D4E03A /* Sine Wave Image.png in Resources */,
 				906EFBF31A9E40F800D4E03A /* sineWave.wav in Resources */,
-				906EFBEF1A9E3F9600D4E03A /* Oboe@2x.png in Resources */,
+				906EFBEF1A9E3F9600D4E03A /* Oboe.png in Resources */,
 				906EFBCE1A9E3A6C00D4E03A /* Main.storyboard in Resources */,
-				906EFBF01A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos@2x.png in Resources */,
+				906EFBF01A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png in Resources */,
 				906EFBF71A9E49A800D4E03A /* piano.wav in Resources */,
 				906EFBD31A9E3A6C00D4E03A /* LaunchScreen.xib in Resources */,
 				906EFBD01A9E3A6C00D4E03A /* Images.xcassets in Resources */,
 				906EFBF51A9E48D900D4E03A /* violin.wav in Resources */,
 				906EFBFB1A9E4FE200D4E03A /* frenchHorn.wav in Resources */,
-				906EFBFD1A9E503700D4E03A /* FrenchHorn@2x.png in Resources */,
+				906EFBFD1A9E503700D4E03A /* FrenchHorn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +486,7 @@
 				906EFBE41A9E3A6C00D4E03A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		906EFBE51A9E3A6C00D4E03A /* Build configuration list for PBXNativeTarget "A440Tests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +495,7 @@
 				906EFBE71A9E3A6C00D4E03A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

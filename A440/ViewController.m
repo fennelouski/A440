@@ -36,7 +36,7 @@
     layer.contents = (id)[UIImage imageNamed:@"background.png"].CGImage;
     [self.view.layer addSublayer:layer];
     CAGradientLayer *gradientOverlay = [self lightBlueGradient];
-    gradientOverlay.frame = CGRectMake(0.0f, 0.0f, kScreenWidth, kScreenHeight);
+    gradientOverlay.frame = CGRectMake(0.0f, 0.0f, LONGER_SIDE + 20.0f, LONGER_SIDE + 20.0f);
     gradientOverlay.opacity = 1.0f;
     [self.view.layer addSublayer:gradientOverlay];
     
@@ -44,6 +44,36 @@
     [self.view addSubview:self.violinButton];
     [self.view addSubview:self.frenchHornButton];
     [self.view addSubview:self.sineWaveButton];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self  selector:@selector(updateViews)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+    [nc addObserver:self selector:@selector(updateViews) name:UIApplicationWillChangeStatusBarFrameNotification object:nil];
+}
+
+- (void)updateViews {
+    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+        [self.pianoButton setFrame:CGRectMake(BUFFER,
+                                             kStatusBarHeight + BUFFER,
+                                             (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                             ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+        [self.violinButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
+                                              kStatusBarHeight + BUFFER,
+                                              (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                               ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+        [self.frenchHornButton setFrame:CGRectMake(BUFFER,
+                                                   ((kScreenHeight - kStatusBarHeight)/2.0f) + kStatusBarHeight,
+                                                   (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                                   ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+        [self.sineWaveButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
+                                                 ((kScreenHeight - kStatusBarHeight)/2.0f) + kStatusBarHeight,
+                                                 (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                                 ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+        
+        [self.pianoImageView setFrame:self.pianoButton.bounds];
+        [self.violinImageView setFrame:self.violinButton.bounds];
+        [self.frenchHornImageView setFrame:self.frenchHornButton.bounds];
+        [self.sineWaveImageView setFrame:self.sineWaveButton.bounds];
+    }];
 }
 
 - (CAGradientLayer *)lightBlueGradient {
@@ -81,14 +111,21 @@
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pianoButtonTouched)];
         [_pianoButton addGestureRecognizer:tapGesture];
-        UIImage *pianoImage = [UIImage imageNamed:@"Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos"];
-        UIImageView *pianoImageView = [[UIImageView alloc] initWithImage:pianoImage];
-        [pianoImageView setFrame:_pianoButton.bounds];
-        [pianoImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [_pianoButton addSubview:pianoImageView];
+        [_pianoButton addSubview:self.pianoImageView];
     }
     
     return _pianoButton;
+}
+
+- (UIImageView *)pianoImageView {
+    if (!_pianoImageView) {
+        UIImage *pianoImage = [UIImage imageNamed:@"Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos"];
+        _pianoImageView = [[UIImageView alloc] initWithImage:pianoImage];
+        [_pianoImageView setFrame:_pianoButton.bounds];
+        [_pianoImageView setContentMode:UIViewContentModeScaleAspectFit];
+    }
+    
+    return _pianoImageView;
 }
 
 - (UIView *)violinButton {
@@ -99,14 +136,21 @@
                                                                  ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(violinButtonTouched)];
         [_violinButton addGestureRecognizer:tapGesture];
-        UIImage *violinImage = [UIImage imageNamed:@"Violin_Geige"];
-        UIImageView *violinImageView = [[UIImageView alloc] initWithImage:violinImage];
-        [violinImageView setFrame:_violinButton.bounds];
-        [violinImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [_violinButton addSubview:violinImageView];
+        [_violinButton addSubview:self.violinImageView];
     }
     
     return _violinButton;
+}
+
+- (UIImageView *)violinImageView {
+    if (!_violinImageView) {
+        UIImage *violinImage = [UIImage imageNamed:@"Violin_Geige"];
+        _violinImageView = [[UIImageView alloc] initWithImage:violinImage];
+        [_violinImageView setFrame:_violinButton.bounds];
+        [_violinImageView setContentMode:UIViewContentModeScaleAspectFit];
+    }
+    
+    return _violinImageView;
 }
 
 - (UIView *)frenchHornButton {
@@ -117,14 +161,21 @@
                                                                ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(frenchHornButtonTouched)];
         [_frenchHornButton addGestureRecognizer:tapGesture];
-        UIImage *frenchHornImage = [UIImage imageNamed:@"frenchHorn"];
-        UIImageView *frenchHornImageView = [[UIImageView alloc] initWithImage:frenchHornImage];
-        [frenchHornImageView setFrame:_frenchHornButton.bounds];
-        [frenchHornImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [_frenchHornButton addSubview:frenchHornImageView];
+        [_frenchHornButton addSubview:self.frenchHornImageView];
     }
     
     return _frenchHornButton;
+}
+
+- (UIImageView *)frenchHornImageView {
+    if (!_frenchHornImageView) {
+        UIImage *frenchHornImage = [UIImage imageNamed:@"FrenchHorn"];
+        _frenchHornImageView = [[UIImageView alloc] initWithImage:frenchHornImage];
+        [_frenchHornImageView setFrame:_frenchHornButton.bounds];
+        [_frenchHornImageView setContentMode:UIViewContentModeScaleAspectFit];
+    }
+    
+    return _frenchHornImageView;
 }
 
 - (UIView *)sineWaveButton {
@@ -135,15 +186,22 @@
                                                                    ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sineWaveButtonTouched)];
         [_sineWaveButton addGestureRecognizer:tapGesture];
-        UIImage *sineWaveImage = [UIImage imageNamed:@"Sine Wave Image"];
-        UIImageView *sineWaveImageView = [[UIImageView alloc] initWithImage:sineWaveImage];
-        [sineWaveImageView setFrame:_sineWaveButton.bounds];
-        [sineWaveImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [_sineWaveButton addSubview:sineWaveImageView];
+        [_sineWaveButton addSubview:self.sineWaveImageView];
 
     }
     
     return _sineWaveButton;
+}
+
+- (UIImageView *)sineWaveImageView {
+    if (!_sineWaveImageView) {
+        UIImage *sineWaveImage = [UIImage imageNamed:@"Sine Wave Image"];
+        _sineWaveImageView = [[UIImageView alloc] initWithImage:sineWaveImage];
+        [_sineWaveImageView setFrame:_sineWaveButton.bounds];
+        [_sineWaveImageView setContentMode:UIViewContentModeScaleAspectFit];
+    }
+    
+    return _sineWaveImageView;
 }
 
 #pragma mark - Audio Player

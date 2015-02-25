@@ -13,6 +13,7 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, strong) UIView *pianoButton, *violinButton, *sineWaveButton, *frenchHornButton;
+@property (nonatomic, strong) UIImageView *pianoImageView, *violinImageView, *frenchHornImageView, *sineWaveImageView;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 @end
