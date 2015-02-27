@@ -12,11 +12,12 @@
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kStatusBarHeight (([[UIApplication sharedApplication] statusBarFrame].size.height == 20.0f) ? 20.0f : (([[UIApplication sharedApplication] statusBarFrame].size.height == 40.0f) ? 20.0f : 0.0f))
 #define kScreenHeight (([[UIApplication sharedApplication] statusBarFrame].size.height > 20.0f) ? [UIScreen mainScreen].bounds.size.height - 20.0f : [UIScreen mainScreen].bounds.size.height)
-#define ANIMATION_DURATION 0.35f
+#define ANIMATION_DURATION 0.25f
 #define SHORTER_SIDE ((kScreenWidth < kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define LONGER_SIDE ((kScreenWidth > kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define BUTTON_SCALE 0.8f
 #define BUFFER (kScreenWidth * 0.05f)
+#define AVAILABLE_HEIGHT ((kScreenHeight - kStatusBarHeight - self.adView.frame.size.height))
 
 @interface ViewController ()
 
@@ -44,6 +45,7 @@
     [self.view addSubview:self.violinButton];
     [self.view addSubview:self.frenchHornButton];
     [self.view addSubview:self.sineWaveButton];
+    [self.view addSubview:self.adView];
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self  selector:@selector(updateViews)    name:UIDeviceOrientationDidChangeNotification  object:nil];
@@ -55,24 +57,28 @@
         [self.pianoButton setFrame:CGRectMake(BUFFER,
                                              kStatusBarHeight + BUFFER,
                                              (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                             ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                             (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         [self.violinButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
                                               kStatusBarHeight + BUFFER,
                                               (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                               ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                               (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         [self.frenchHornButton setFrame:CGRectMake(BUFFER,
-                                                   ((kScreenHeight - kStatusBarHeight)/2.0f) + kStatusBarHeight,
+                                                   (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                    (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                   ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                                   (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         [self.sineWaveButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                                 ((kScreenHeight - kStatusBarHeight)/2.0f) + kStatusBarHeight,
+                                                 (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                  (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                 ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                                 (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         
         [self.pianoImageView setFrame:self.pianoButton.bounds];
         [self.violinImageView setFrame:self.violinButton.bounds];
         [self.frenchHornImageView setFrame:self.frenchHornButton.bounds];
         [self.sineWaveImageView setFrame:self.sineWaveButton.bounds];
+        
+        if (self.bannerShouldLayout) {
+            [self.adView setCenter:CGPointMake(kScreenWidth/2.0f, kScreenHeight - [self.adView frame].size.height/2.0f)];
+        }
     }];
 }
 
@@ -107,7 +113,7 @@
         _pianoButton = [[UIView alloc] initWithFrame:CGRectMake(BUFFER,
                                                                 kStatusBarHeight + BUFFER,
                                                                 (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                                ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                                                (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pianoButtonTouched)];
         [_pianoButton addGestureRecognizer:tapGesture];
@@ -133,7 +139,7 @@
         _violinButton = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
                                                                  kStatusBarHeight + BUFFER,
                                                                  (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                                 ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                                                 (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(violinButtonTouched)];
         [_violinButton addGestureRecognizer:tapGesture];
         [_violinButton addSubview:self.violinImageView];
@@ -156,9 +162,9 @@
 - (UIView *)frenchHornButton {
     if (!_frenchHornButton) {
         _frenchHornButton = [[UIView alloc] initWithFrame:CGRectMake(BUFFER,
-                                                               ((kScreenHeight - kStatusBarHeight)/2.0f) + kStatusBarHeight,
+                                                               (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                                (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                               ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                                               (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(frenchHornButtonTouched)];
         [_frenchHornButton addGestureRecognizer:tapGesture];
         [_frenchHornButton addSubview:self.frenchHornImageView];
@@ -181,9 +187,9 @@
 - (UIView *)sineWaveButton {
     if (!_sineWaveButton) {
         _sineWaveButton = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                                                   ((kScreenHeight - kStatusBarHeight)/2.0f) + kStatusBarHeight,
+                                                                   (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                                    (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                                   ((kScreenHeight - kStatusBarHeight)/2.0f) * BUTTON_SCALE)];
+                                                                   (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sineWaveButtonTouched)];
         [_sineWaveButton addGestureRecognizer:tapGesture];
         [_sineWaveButton addSubview:self.sineWaveImageView];
@@ -202,6 +208,17 @@
     }
     
     return _sineWaveImageView;
+}
+
+- (ADBannerView *)adView {
+    if (!_adView) {
+        _adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        [_adView setAutoresizingMask:UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleBottomMargin];
+        [_adView setDelegate:self];
+        self.bannerShouldLayout = YES;
+    }
+    
+    return _adView;
 }
 
 #pragma mark - Audio Player
@@ -317,6 +334,24 @@
     self.audioPlayer.numberOfLoops = -1; //Infinite
     
     [self.audioPlayer play];
+}
+
+#pragma mark - Ad Banner Delegate
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    self.bannerShouldLayout = NO;
+    [self updateViews];
+    
+    return YES;
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+    self.bannerShouldLayout = YES;
+    [self updateViews];
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    NSLog(@"iAD error: didFailToReceiveAdWithError: %@", error);
 }
 
 #pragma mark - Memory Warning

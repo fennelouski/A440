@@ -28,6 +28,7 @@
 		906EFBFD1A9E503700D4E03A /* FrenchHorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn.png */; };
 		906EFC021A9E510400D4E03A /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */; };
 		906EFC031A9E510400D4E03A /* NSString+AppFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */; };
+		90ED86F51AA0E730000245E5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90ED86F41AA0E730000245E5 /* iAd.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
 		906EFC001A9E510400D4E03A /* NSString+AppFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AppFunctions.h"; sourceTree = "<group>"; };
 		906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AppFunctions.m"; sourceTree = "<group>"; };
+		90ED86F41AA0E730000245E5 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90ED86F51AA0E730000245E5 /* iAd.framework in Frameworks */,
 				906EFBEA1A9E3DB800D4E03A /* AVFoundation.framework in Frameworks */,
 				906EFBEB1A9E3DB800D4E03A /* AVKit.framework in Frameworks */,
 			);
@@ -95,6 +98,7 @@
 		906EFBB31A9E3A6C00D4E03A = {
 			isa = PBXGroup;
 			children = (
+				90ED86F41AA0E730000245E5 /* iAd.framework */,
 				906EFBE81A9E3DB800D4E03A /* AVFoundation.framework */,
 				906EFBE91A9E3DB800D4E03A /* AVKit.framework */,
 				906EFBBE1A9E3A6C00D4E03A /* A440 */,
