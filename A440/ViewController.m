@@ -244,18 +244,13 @@
     if (self.pianoButton.tag == 1) {
         NSLog(@"Stop Piano");
         [self.audioPlayer stop];
-        [self.frenchHornButton setTag:0];
-        [self.pianoButton setTag:0];
-        [self.violinButton setTag:0];
-        [self.sineWaveButton setTag:0];
+        [self resetButtons];
     }
     
     else {
         [self playAudioFile:@"piano"];
-        [self.frenchHornButton setTag:0];
+        [self resetButtons];
         [self.pianoButton setTag:1];
-        [self.violinButton setTag:0];
-        [self.sineWaveButton setTag:0];
     }
 }
 
@@ -263,18 +258,13 @@
     if (self.violinButton.tag == 1) {
         NSLog(@"Stop Violin");
         [self.audioPlayer stop];
-        [self.frenchHornButton setTag:0];
-        [self.pianoButton setTag:0];
-        [self.violinButton setTag:0];
-        [self.sineWaveButton setTag:0];
+        [self resetButtons];
     }
     
     else {
         [self playAudioFile:@"violin"];
-        [self.frenchHornButton setTag:0];
-        [self.pianoButton setTag:0];
+        [self resetButtons];
         [self.violinButton setTag:1];
-        [self.sineWaveButton setTag:0];
     }
 }
 
@@ -282,18 +272,13 @@
     if (self.frenchHornButton.tag == 1) {
         NSLog(@"Stop frenchHorn");
         [self.audioPlayer stop];
-        [self.frenchHornButton setTag:0];
-        [self.pianoButton setTag:0];
-        [self.violinButton setTag:0];
-        [self.sineWaveButton setTag:0];
+        [self resetButtons];
     }
     
     else {
         [self playAudioFile:@"frenchHorn"];
+        [self resetButtons];
         [self.frenchHornButton setTag:1];
-        [self.pianoButton setTag:0];
-        [self.violinButton setTag:0];
-        [self.sineWaveButton setTag:0];
     }
 }
 
@@ -301,19 +286,21 @@
     if (self.sineWaveButton.tag == 1) {
         NSLog(@"Stop Sine Wave");
         [self.audioPlayer stop];
-        [self.frenchHornButton setTag:0];
-        [self.pianoButton setTag:0];
-        [self.violinButton setTag:0];
-        [self.sineWaveButton setTag:0];
+        [self resetButtons];
     }
     
     else {
         [self playAudioFile:@"sineWave"];
-        [self.frenchHornButton setTag:0];
-        [self.pianoButton setTag:0];
-        [self.violinButton setTag:0];
+        [self resetButtons];
         [self.sineWaveButton setTag:1];
     }
+}
+
+- (void)resetButtons {
+    [self.frenchHornButton setTag:0];
+    [self.pianoButton setTag:0];
+    [self.violinButton setTag:0];
+    [self.sineWaveButton setTag:0];
 }
 
 #pragma mark - Play Audio File
@@ -336,10 +323,27 @@
     [self.audioPlayer play];
 }
 
+// I wish this worked...
+- (void)fadeAudioOut:(NSNumber *)volume {
+    float volumeAsFloat = [volume floatValue];
+    volumeAsFloat -= 0.03f;
+    if (volumeAsFloat > 0.0f) {
+        [self performSelector:@selector(fadeAudioOut:) withObject:[NSNumber numberWithFloat:volumeAsFloat] afterDelay:0.01f];
+    }
+    
+    else {
+        [self.audioPlayer stop];
+        [self.audioPlayer setVolume:1.0f];
+    }
+}
+
 #pragma mark - Ad Banner Delegate
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     self.bannerShouldLayout = NO;
+    
+    [self fadeAudioOut:[NSNumber numberWithFloat:self.audioPlayer.volume]];
+    [self resetButtons];
     [self updateViews];
     
     return YES;
