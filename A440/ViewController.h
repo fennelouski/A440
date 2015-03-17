@@ -11,9 +11,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <iAd/iAd.h>
 
+#import "A4InstrumentView.h"
+
 @interface ViewController : UIViewController <ADBannerViewDelegate>
 
-@property (nonatomic, strong) UIView *pianoButton, *violinButton, *sineWaveButton, *frenchHornButton;
+@property (nonatomic, strong) A4InstrumentView *pianoButton, *violinButton, *sineWaveButton, *frenchHornButton;
 @property (nonatomic, strong) UIImageView *pianoImageView, *violinImageView, *frenchHornImageView, *sineWaveImageView;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) ADBannerView *adView;

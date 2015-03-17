@@ -17,7 +17,8 @@
 #define LONGER_SIDE ((kScreenWidth > kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define BUTTON_SCALE 0.8f
 #define BUFFER (kScreenWidth * 0.05f)
-#define AVAILABLE_HEIGHT ((kScreenHeight - kStatusBarHeight - self.adView.frame.size.height))
+#define AVAILABLE_HEIGHT (kScreenHeight - kStatusBarHeight - ((self.adView.bannerLoaded) ? self.adView.frame.size.height : 0.0f))
+#define CORNER_RADIUS_RATIO 8.0f
 
 @interface ViewController ()
 
@@ -54,48 +55,101 @@
 
 - (void)updateViews {
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        [self.pianoButton setFrame:CGRectMake(BUFFER,
-                                             kStatusBarHeight + BUFFER,
-                                             (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                             (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        [self.violinButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                              kStatusBarHeight + BUFFER,
-                                              (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                               (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        [self.frenchHornButton setFrame:CGRectMake(BUFFER,
-                                                   (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
-                                                   (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                   (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        [self.sineWaveButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                                 (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
-                                                 (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                 (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        
+        [self layoutButtons];
         [self.pianoImageView setFrame:self.pianoButton.bounds];
         [self.violinImageView setFrame:self.violinButton.bounds];
         [self.frenchHornImageView setFrame:self.frenchHornButton.bounds];
         [self.sineWaveImageView setFrame:self.sineWaveButton.bounds];
         
-        if (self.bannerShouldLayout) {
+        if (self.bannerShouldLayout && self.adView.bannerLoaded) {
             [self.adView setCenter:CGPointMake(kScreenWidth/2.0f, kScreenHeight - [self.adView frame].size.height/2.0f)];
+        }
+        
+        else if (!self.adView.bannerLoaded) {
+            [self.adView setCenter:CGPointMake(kScreenWidth/2.0f, kScreenHeight + self.adView.frame.size.height)];
         }
     }];
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+        self.adView.currentContentSizeIdentifier =
+        ADBannerContentSizeIdentifierLandscape;
+    else
+        self.adView.currentContentSizeIdentifier =
+        ADBannerContentSizeIdentifierPortrait;
+}
+
+
+- (void)layoutButtons {
+    float row1YBuffer = -10.0f;
+    float row2YBuffer = 10.0f;
+    if (kStatusBarHeight > 0.0f) {
+        row1YBuffer = 0.0f;
+        row2YBuffer = 20.0f;
+    }
+    [self.pianoButton setFrame:CGRectMake(BUFFER,
+                                          kStatusBarHeight + BUFFER + row1YBuffer,
+                                          (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                          (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+    [self.violinButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
+                                           kStatusBarHeight + BUFFER + row1YBuffer,
+                                           (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                           (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+    [self.frenchHornButton setFrame:CGRectMake(BUFFER,
+                                               (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight + row2YBuffer,
+                                               (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                               (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+    [self.sineWaveButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
+                                             (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight + row2YBuffer,
+                                             (kScreenWidth/2.0f) * BUTTON_SCALE,
+                                             (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+    float scale = 0.98f;
+    [self scaleView:self.pianoButton to:scale];
+    [self scaleView:self.violinButton to:scale];
+    [self scaleView:self.frenchHornButton to:scale];
+    [self scaleView:self.sineWaveButton to:scale];
+}
+
+- (void)scaleView:(A4InstrumentView *)view to:(float)scale {
+    CGPoint originalCenter = view.center;
+    CGRect frame = view.frame;
+    frame.size.height *= scale;
+    frame.size.width *= scale;
+    [view setFrame:frame];
+    [view setCenter:originalCenter];
+    
+    [self setUpViewShadow:view];
+    [view.gradientLayer setCornerRadius:view.layer.cornerRadius];
+    [view.gradientLayer setFrame:view.bounds];
+}
+
+- (void)setUpViewShadow:(UIView *)view {
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                                          cornerRadius:view.frame.size.height / CORNER_RADIUS_RATIO];
+    [view.layer setMasksToBounds:NO];
+    [view.layer setShadowColor:[UIColor blackColor].CGColor];
+    [view.layer setShadowOffset:CGSizeMake(-5.0f, 8.0f)];
+    [view.layer setCornerRadius:view.frame.size.height / CORNER_RADIUS_RATIO];
+    [view.layer setShadowRadius:8.0f];
+    [view.layer setShadowOpacity:0.25f];
+    view.layer.shadowPath = shadowPath.CGPath;
+}
+
 - (CAGradientLayer *)lightBlueGradient {
-    NSArray *colors = [NSArray arrayWithObjects:(id)[UIColor skyBlue].CGColor, [UIColor darkSkyBlue].CGColor, nil];
+    NSArray *colors = [NSArray arrayWithObjects:(id)[UIColor appColor2].CGColor, [UIColor appColor1].CGColor, nil];
     
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *dateComps = [gregorianCalendar components:(NSCalendarUnitHour) fromDate: [NSDate date]];
     NSInteger hour = [dateComps hour];
     
     if (hour < 6 || hour > 22) {
-        colors = @[(id)[UIColor colorWithRed:0.03f green:0.0f blue:0.53f alpha:1.0f].CGColor,
-                   (id)[UIColor colorWithRed:0.0f green:0.0f blue:0.3f alpha:1.0f].CGColor];
+        colors = @[(id)[UIColor appColor1].CGColor,
+                   (id)[UIColor appColor3].CGColor];
     }
     
-    NSNumber *stopOne = [NSNumber numberWithFloat:0.0f];
-    NSNumber *stopTwo = [NSNumber numberWithFloat:0.5f];
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.3f];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0f];
     
     NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
     
@@ -108,9 +162,9 @@
 
 #pragma mark - Subviews
 
-- (UIView *)pianoButton {
+- (A4InstrumentView *)pianoButton {
     if (!_pianoButton) {
-        _pianoButton = [[UIView alloc] initWithFrame:CGRectMake(BUFFER,
+        _pianoButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(BUFFER,
                                                                 kStatusBarHeight + BUFFER,
                                                                 (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                 (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
@@ -118,6 +172,8 @@
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pianoButtonTouched)];
         [_pianoButton addGestureRecognizer:tapGesture];
         [_pianoButton addSubview:self.pianoImageView];
+        
+        [_pianoButton setBackgroundColor:[UIColor appColor]];
     }
     
     return _pianoButton;
@@ -134,15 +190,17 @@
     return _pianoImageView;
 }
 
-- (UIView *)violinButton {
+- (A4InstrumentView *)violinButton {
     if (!_violinButton) {
-        _violinButton = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
+        _violinButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
                                                                  kStatusBarHeight + BUFFER,
                                                                  (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                  (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(violinButtonTouched)];
         [_violinButton addGestureRecognizer:tapGesture];
         [_violinButton addSubview:self.violinImageView];
+        
+        [_violinButton setBackgroundColor:[UIColor appColor]];
     }
     
     return _violinButton;
@@ -159,15 +217,17 @@
     return _violinImageView;
 }
 
-- (UIView *)frenchHornButton {
+- (A4InstrumentView *)frenchHornButton {
     if (!_frenchHornButton) {
-        _frenchHornButton = [[UIView alloc] initWithFrame:CGRectMake(BUFFER,
+        _frenchHornButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(BUFFER,
                                                                (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                                (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(frenchHornButtonTouched)];
         [_frenchHornButton addGestureRecognizer:tapGesture];
         [_frenchHornButton addSubview:self.frenchHornImageView];
+
+        [_frenchHornButton setBackgroundColor:[UIColor appColor]];
     }
     
     return _frenchHornButton;
@@ -184,16 +244,17 @@
     return _frenchHornImageView;
 }
 
-- (UIView *)sineWaveButton {
+- (A4InstrumentView *)sineWaveButton {
     if (!_sineWaveButton) {
-        _sineWaveButton = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
+        _sineWaveButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
                                                                    (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                                    (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                    (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sineWaveButtonTouched)];
         [_sineWaveButton addGestureRecognizer:tapGesture];
         [_sineWaveButton addSubview:self.sineWaveImageView];
-
+        
+        [_sineWaveButton setBackgroundColor:[UIColor appColor]];
     }
     
     return _sineWaveButton;
@@ -252,6 +313,8 @@
         [self resetButtons];
         [self.pianoButton setTag:1];
     }
+    
+    [self animateButtons];
 }
 
 - (void)violinButtonTouched {
@@ -266,6 +329,8 @@
         [self resetButtons];
         [self.violinButton setTag:1];
     }
+    
+    [self animateButtons];
 }
 
 - (void)frenchHornButtonTouched {
@@ -280,6 +345,8 @@
         [self resetButtons];
         [self.frenchHornButton setTag:1];
     }
+    
+    [self animateButtons];
 }
 
 - (void)sineWaveButtonTouched {
@@ -294,6 +361,8 @@
         [self resetButtons];
         [self.sineWaveButton setTag:1];
     }
+    
+    [self animateButtons];
 }
 
 - (void)resetButtons {
@@ -301,6 +370,15 @@
     [self.pianoButton setTag:0];
     [self.violinButton setTag:0];
     [self.sineWaveButton setTag:0];
+}
+
+- (void)animateButtons {
+    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+        [self.frenchHornButton.gradientLayer setGeometryFlipped:self.frenchHornButton.tag];
+        [self.sineWaveButton.gradientLayer setGeometryFlipped:self.sineWaveButton.tag];
+        [self.violinButton.gradientLayer setGeometryFlipped:self.violinButton.tag];
+        [self.pianoButton.gradientLayer setGeometryFlipped:self.pianoButton.tag];
+    }];
 }
 
 #pragma mark - Play Audio File
@@ -340,22 +418,50 @@
 #pragma mark - Ad Banner Delegate
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
-    self.bannerShouldLayout = NO;
-    
-    [self fadeAudioOut:[NSNumber numberWithFloat:self.audioPlayer.volume]];
-    [self resetButtons];
-    [self updateViews];
+    if (!willLeave) {
+        [self fadeAudioOut:[NSNumber numberWithFloat:self.audioPlayer.volume]];
+        [self resetButtons];
+        [self updateViews];
+    }
     
     return YES;
 }
 
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    [self updateViews];
+}
+
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
-    self.bannerShouldLayout = YES;
+//    self.bannerShouldLayout = YES;
     [self updateViews];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"iAD error: didFailToReceiveAdWithError: %@", error);
+    
+    [self updateViews];
+}
+
+#pragma mark - gradient
+
+- (CAGradientLayer *)shadowGradient {
+    NSArray *colors = [NSArray arrayWithObjects:(id)[UIColor colorWithWhite:1.0f alpha:0.41f].CGColor,
+                       (id)[UIColor colorWithWhite:0.9f alpha:0.0f].CGColor,
+                       (id)[UIColor clearColor].CGColor,
+                       (id)[UIColor colorWithWhite:0.0f alpha:0.2f].CGColor, nil];
+    
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.0f];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:0.15f];
+    NSNumber *stopThree = [NSNumber numberWithFloat:0.75f];
+    NSNumber *stopFour = [NSNumber numberWithFloat:1.0f];
+    
+    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, stopThree, stopFour, nil];
+    
+    CAGradientLayer *headerLayer = [CAGradientLayer layer];
+    headerLayer.colors = colors;
+    headerLayer.locations = locations;
+    
+    return headerLayer;
 }
 
 #pragma mark - Memory Warning

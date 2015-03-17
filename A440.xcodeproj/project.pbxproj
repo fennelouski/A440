@@ -26,8 +26,9 @@
 		906EFBF91A9E4D4800D4E03A /* Sine Wave Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */; };
 		906EFBFB1A9E4FE200D4E03A /* frenchHorn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFA1A9E4FE200D4E03A /* frenchHorn.wav */; };
 		906EFBFD1A9E503700D4E03A /* FrenchHorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn.png */; };
-		906EFC021A9E510400D4E03A /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */; };
 		906EFC031A9E510400D4E03A /* NSString+AppFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */; };
+		9095E4F21AA4F0E300C2F7D0 /* A4InstrumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9095E4F11AA4F0E300C2F7D0 /* A4InstrumentView.m */; };
+		9095E4FA1AA508D500C2F7D0 /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9095E4F91AA508D500C2F7D0 /* UIColor+AppColors.m */; };
 		90ED86F51AA0E730000245E5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90ED86F41AA0E730000245E5 /* iAd.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,10 +68,12 @@
 		906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Sine Wave Image.png"; path = "Icons/Sine Wave Image.png"; sourceTree = "<group>"; };
 		906EFBFA1A9E4FE200D4E03A /* frenchHorn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = frenchHorn.wav; path = "Audio Files/frenchHorn.wav"; sourceTree = "<group>"; };
 		906EFBFC1A9E503700D4E03A /* FrenchHorn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FrenchHorn.png; path = Icons/FrenchHorn.png; sourceTree = "<group>"; };
-		906EFBFE1A9E510400D4E03A /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
-		906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
 		906EFC001A9E510400D4E03A /* NSString+AppFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AppFunctions.h"; sourceTree = "<group>"; };
 		906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AppFunctions.m"; sourceTree = "<group>"; };
+		9095E4F01AA4F0E300C2F7D0 /* A4InstrumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A4InstrumentView.h; sourceTree = "<group>"; };
+		9095E4F11AA4F0E300C2F7D0 /* A4InstrumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A4InstrumentView.m; sourceTree = "<group>"; };
+		9095E4F81AA508D500C2F7D0 /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
+		9095E4F91AA508D500C2F7D0 /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
 		90ED86F41AA0E730000245E5 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -123,6 +126,8 @@
 				906EFBC41A9E3A6C00D4E03A /* AppDelegate.m */,
 				906EFBC91A9E3A6C00D4E03A /* ViewController.h */,
 				906EFBCA1A9E3A6C00D4E03A /* ViewController.m */,
+				9095E4F01AA4F0E300C2F7D0 /* A4InstrumentView.h */,
+				9095E4F11AA4F0E300C2F7D0 /* A4InstrumentView.m */,
 				906EFBCC1A9E3A6C00D4E03A /* Main.storyboard */,
 				906EFBCF1A9E3A6C00D4E03A /* Images.xcassets */,
 				906EFBD11A9E3A6C00D4E03A /* LaunchScreen.xib */,
@@ -171,8 +176,8 @@
 		906EFC041A9E510900D4E03A /* Helper Categories */ = {
 			isa = PBXGroup;
 			children = (
-				906EFBFE1A9E510400D4E03A /* UIColor+AppColors.h */,
-				906EFBFF1A9E510400D4E03A /* UIColor+AppColors.m */,
+				9095E4F81AA508D500C2F7D0 /* UIColor+AppColors.h */,
+				9095E4F91AA508D500C2F7D0 /* UIColor+AppColors.m */,
 				906EFC001A9E510400D4E03A /* NSString+AppFunctions.h */,
 				906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */,
 			);
@@ -228,6 +233,7 @@
 				TargetAttributes = {
 					906EFBBB1A9E3A6C00D4E03A = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = EJLR2RPSV2;
 					};
 					906EFBD71A9E3A6C00D4E03A = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -288,10 +294,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				906EFC021A9E510400D4E03A /* UIColor+AppColors.m in Sources */,
 				906EFBC51A9E3A6C00D4E03A /* AppDelegate.m in Sources */,
 				906EFBC81A9E3A6C00D4E03A /* A440.xcdatamodeld in Sources */,
 				906EFBCB1A9E3A6C00D4E03A /* ViewController.m in Sources */,
+				9095E4FA1AA508D500C2F7D0 /* UIColor+AppColors.m in Sources */,
+				9095E4F21AA4F0E300C2F7D0 /* A4InstrumentView.m in Sources */,
 				906EFBC21A9E3A6C00D4E03A /* main.m in Sources */,
 				906EFC031A9E510400D4E03A /* NSString+AppFunctions.m in Sources */,
 			);
@@ -418,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = A440/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -430,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = A440/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

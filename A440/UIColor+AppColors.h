@@ -20,8 +20,9 @@
 + (UIColor *)appColor2;
 + (UIColor *)appColor3;
 + (UIColor *)appColor4;
-
 + (NSArray *)appColors;
+
++ (UIColor *)redAppColor;
 
 // modify colors
 - (UIColor *)lightenColor;
@@ -56,6 +57,12 @@
 // Holiday Colors
 + (NSArray *)holidayColorsForToday;
 + (NSArray *)holidayColorsForDate:(NSDate *)date;
++ (NSArray *)strictHolidayColorsForToday;
++ (NSArray *)strictHolidayColorsForDate:(NSDate *)date;
+
+// color for time of day
++ (UIColor *)colorForTimeOfDay:(NSDate *)date;
++ (UIColor *)colorForCurrentTime;
 
 // sets of colors that are different for two players
 + (NSArray *)player1Colors;
