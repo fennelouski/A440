@@ -169,8 +169,13 @@
                                                                 (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                 (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pianoButtonTouched)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(tapped:)];
         [_pianoButton addGestureRecognizer:tapGesture];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPressed:)];
+        [longPress setMinimumPressDuration:0.25f];
+        [_pianoButton addGestureRecognizer:longPress];
         [_pianoButton addSubview:self.pianoImageView];
         
         [_pianoButton setBackgroundColor:[UIColor appColor]];
@@ -196,8 +201,12 @@
                                                                  kStatusBarHeight + BUFFER,
                                                                  (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                  (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(violinButtonTouched)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [_violinButton addGestureRecognizer:tapGesture];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPressed:)];
+        [longPress setMinimumPressDuration:0.25f];
+        [_violinButton addGestureRecognizer:longPress];
         [_violinButton addSubview:self.violinImageView];
         
         [_violinButton setBackgroundColor:[UIColor appColor]];
@@ -223,8 +232,12 @@
                                                                (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                                (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(frenchHornButtonTouched)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [_frenchHornButton addGestureRecognizer:tapGesture];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPressed:)];
+        [longPress setMinimumPressDuration:0.25f];
+        [_frenchHornButton addGestureRecognizer:longPress];
         [_frenchHornButton addSubview:self.frenchHornImageView];
 
         [_frenchHornButton setBackgroundColor:[UIColor appColor]];
@@ -250,8 +263,12 @@
                                                                    (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
                                                                    (kScreenWidth/2.0f) * BUTTON_SCALE,
                                                                    (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sineWaveButtonTouched)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [_sineWaveButton addGestureRecognizer:tapGesture];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPressed:)];
+        [longPress setMinimumPressDuration:0.25f];
+        [_sineWaveButton addGestureRecognizer:longPress];
         [_sineWaveButton addSubview:self.sineWaveImageView];
         
         [_sineWaveButton setBackgroundColor:[UIColor appColor]];
@@ -301,65 +318,70 @@
 
 #pragma mark - Button Actions
 
-- (void)pianoButtonTouched {
-    if (self.pianoButton.tag == 1) {
-        NSLog(@"Stop Piano");
-        [self.audioPlayer stop];
-        [self resetButtons];
-    }
+- (void)longPressed:(UILongPressGestureRecognizer *)longPress {
+    UIView *buttonView = [longPress view];
     
-    else {
-        [self playAudioFile:@"piano"];
-        [self resetButtons];
-        [self.pianoButton setTag:1];
+    if ([longPress state] == UIGestureRecognizerStateBegan || [longPress state] == UIGestureRecognizerStateEnded) {
+        if (buttonView.tag == 1) {
+            [self.audioPlayer stop];
+            [self resetButtons];
+        }
+        
+        else {
+            NSString *audioFileName = @"";
+            if ([buttonView isEqual:self.pianoButton]) {
+                audioFileName = @"piano";
+            }
+            
+            else if ([buttonView isEqual:self.violinButton]) {
+                audioFileName = @"violin";
+            }
+            
+            else if ([buttonView isEqual:self.frenchHornButton]) {
+                audioFileName = @"frenchHorn";
+            }
+            
+            else if ([buttonView isEqual:self.sineWaveButton]) {
+                audioFileName = @"sineWave";
+            }
+            
+            [self playAudioFile:audioFileName];
+            [self resetButtons];
+            [buttonView setTag:1];
+        }
+        
+        [self animateButtons];
     }
-    
-    [self animateButtons];
 }
 
-- (void)violinButtonTouched {
-    if (self.violinButton.tag == 1) {
-        NSLog(@"Stop Violin");
+- (void)tapped:(UITapGestureRecognizer *)tap {
+    UIView *buttonView = [tap view];
+    if (buttonView.tag == 1) {
         [self.audioPlayer stop];
         [self resetButtons];
     }
     
     else {
-        [self playAudioFile:@"violin"];
+        NSString *audioFileName = @"";
+        if ([buttonView isEqual:self.pianoButton]) {
+            audioFileName = @"piano";
+        }
+        
+        else if ([buttonView isEqual:self.violinButton]) {
+            audioFileName = @"violin";
+        }
+        
+        else if ([buttonView isEqual:self.frenchHornButton]) {
+            audioFileName = @"frenchHorn";
+        }
+        
+        else if ([buttonView isEqual:self.sineWaveButton]) {
+            audioFileName = @"sineWave";
+        }
+        
+        [self playAudioFile:audioFileName];
         [self resetButtons];
-        [self.violinButton setTag:1];
-    }
-    
-    [self animateButtons];
-}
-
-- (void)frenchHornButtonTouched {
-    if (self.frenchHornButton.tag == 1) {
-        NSLog(@"Stop frenchHorn");
-        [self.audioPlayer stop];
-        [self resetButtons];
-    }
-    
-    else {
-        [self playAudioFile:@"frenchHorn"];
-        [self resetButtons];
-        [self.frenchHornButton setTag:1];
-    }
-    
-    [self animateButtons];
-}
-
-- (void)sineWaveButtonTouched {
-    if (self.sineWaveButton.tag == 1) {
-        NSLog(@"Stop Sine Wave");
-        [self.audioPlayer stop];
-        [self resetButtons];
-    }
-    
-    else {
-        [self playAudioFile:@"sineWave"];
-        [self resetButtons];
-        [self.sineWaveButton setTag:1];
+        [buttonView setTag:1];
     }
     
     [self animateButtons];
@@ -384,14 +406,11 @@
 #pragma mark - Play Audio File
 
 - (void)playAudioFile:(NSString *)fileName {
-    NSLog(@"Play %@", fileName);
-    
     if ([self.audioPlayer isPlaying]) {
         [self.audioPlayer stop];
     }
     
-    NSString *soundFilePath = [NSString stringWithFormat:@"%@/%@.wav",
-                               [[NSBundle mainBundle] resourcePath], fileName];
+    NSString *soundFilePath = [NSString stringWithFormat:@"%@/%@.wav", [[NSBundle mainBundle] resourcePath], fileName];
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL
@@ -445,7 +464,8 @@
 #pragma mark - gradient
 
 - (CAGradientLayer *)shadowGradient {
-    NSArray *colors = [NSArray arrayWithObjects:(id)[UIColor colorWithWhite:1.0f alpha:0.41f].CGColor,
+    NSArray *colors = [NSArray arrayWithObjects:
+                       (id)[UIColor colorWithWhite:1.0f alpha:0.41f].CGColor,
                        (id)[UIColor colorWithWhite:0.9f alpha:0.0f].CGColor,
                        (id)[UIColor clearColor].CGColor,
                        (id)[UIColor colorWithWhite:0.0f alpha:0.2f].CGColor, nil];
