@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "UIColor+AppColors.h"
+#import "A4InstrumentView.h"
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
