@@ -181,6 +181,12 @@
         [_pianoButton addSubview:self.pianoImageView];
 
         [_pianoButton setBackgroundColor:[UIColor appColor]];
+
+        // Accessibility
+        [_pianoButton setIsAccessibilityElement:YES];
+        [_pianoButton setAccessibilityLabel:@"Piano"];
+        [_pianoButton setAccessibilityHint:@"Tap to play A440 piano tone, tap again to stop. Long press to stop playback."];
+        [_pianoButton setAccessibilityTraits:UIAccessibilityTraitButton];
     }
 
     return _pianoButton;
@@ -213,6 +219,12 @@
         [_violinButton addSubview:self.violinImageView];
 
         [_violinButton setBackgroundColor:[UIColor appColor]];
+
+        // Accessibility
+        [_violinButton setIsAccessibilityElement:YES];
+        [_violinButton setAccessibilityLabel:@"Violin"];
+        [_violinButton setAccessibilityHint:@"Tap to play A440 violin tone, tap again to stop. Long press to stop playback."];
+        [_violinButton setAccessibilityTraits:UIAccessibilityTraitButton];
     }
 
     return _violinButton;
@@ -245,6 +257,12 @@
         [_frenchHornButton addSubview:self.frenchHornImageView];
 
         [_frenchHornButton setBackgroundColor:[UIColor appColor]];
+
+        // Accessibility
+        [_frenchHornButton setIsAccessibilityElement:YES];
+        [_frenchHornButton setAccessibilityLabel:@"French Horn"];
+        [_frenchHornButton setAccessibilityHint:@"Tap to play A440 French horn tone, tap again to stop. Long press to stop playback."];
+        [_frenchHornButton setAccessibilityTraits:UIAccessibilityTraitButton];
     }
 
     return _frenchHornButton;
@@ -277,6 +295,12 @@
         [_sineWaveButton addSubview:self.sineWaveImageView];
 
         [_sineWaveButton setBackgroundColor:[UIColor appColor]];
+
+        // Accessibility
+        [_sineWaveButton setIsAccessibilityElement:YES];
+        [_sineWaveButton setAccessibilityLabel:@"Sine Wave"];
+        [_sineWaveButton setAccessibilityHint:@"Tap to play pure A440 sine wave tone, tap again to stop. Long press to stop playback."];
+        [_sineWaveButton setAccessibilityTraits:UIAccessibilityTraitButton];
     }
 
     return _sineWaveButton;
