@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		906EFBC21A9E3A6C00D4E03A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBC11A9E3A6C00D4E03A /* main.m */; };
 		906EFBC51A9E3A6C00D4E03A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBC41A9E3A6C00D4E03A /* AppDelegate.m */; };
-		906EFBC81A9E3A6C00D4E03A /* A440.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBC61A9E3A6C00D4E03A /* A440.xcdatamodeld */; };
 		906EFBCB1A9E3A6C00D4E03A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBCA1A9E3A6C00D4E03A /* ViewController.m */; };
 		906EFBCE1A9E3A6C00D4E03A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBCC1A9E3A6C00D4E03A /* Main.storyboard */; };
 		906EFBD01A9E3A6C00D4E03A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBCF1A9E3A6C00D4E03A /* Images.xcassets */; };
@@ -48,7 +47,6 @@
 		906EFBC11A9E3A6C00D4E03A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		906EFBC31A9E3A6C00D4E03A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		906EFBC41A9E3A6C00D4E03A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		906EFBC71A9E3A6C00D4E03A /* A440.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = A440.xcdatamodel; sourceTree = "<group>"; };
 		906EFBC91A9E3A6C00D4E03A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		906EFBCA1A9E3A6C00D4E03A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		906EFBCD1A9E3A6C00D4E03A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90ED86F51AA0E730000245E5 /* iAd.framework in Frameworks */,
 				906EFBEA1A9E3DB800D4E03A /* AVFoundation.framework in Frameworks */,
 				906EFBEB1A9E3DB800D4E03A /* AVKit.framework in Frameworks */,
 			);
@@ -101,7 +98,6 @@
 		906EFBB31A9E3A6C00D4E03A = {
 			isa = PBXGroup;
 			children = (
-				90ED86F41AA0E730000245E5 /* iAd.framework */,
 				906EFBE81A9E3DB800D4E03A /* AVFoundation.framework */,
 				906EFBE91A9E3DB800D4E03A /* AVKit.framework */,
 				906EFBBE1A9E3A6C00D4E03A /* A440 */,
@@ -131,7 +127,6 @@
 				906EFBCC1A9E3A6C00D4E03A /* Main.storyboard */,
 				906EFBCF1A9E3A6C00D4E03A /* Images.xcassets */,
 				906EFBD11A9E3A6C00D4E03A /* LaunchScreen.xib */,
-				906EFBC61A9E3A6C00D4E03A /* A440.xcdatamodeld */,
 				906EFC041A9E510900D4E03A /* Helper Categories */,
 				906EFBBF1A9E3A6C00D4E03A /* Supporting Files */,
 			);
@@ -295,7 +290,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				906EFBC51A9E3A6C00D4E03A /* AppDelegate.m in Sources */,
-				906EFBC81A9E3A6C00D4E03A /* A440.xcdatamodeld in Sources */,
 				906EFBCB1A9E3A6C00D4E03A /* ViewController.m in Sources */,
 				9095E4FA1AA508D500C2F7D0 /* UIColor+AppColors.m in Sources */,
 				9095E4F21AA4F0E300C2F7D0 /* A4InstrumentView.m in Sources */,
@@ -376,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -412,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -427,7 +421,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = A440/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -440,7 +434,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = A440/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -511,19 +505,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		906EFBC61A9E3A6C00D4E03A /* A440.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				906EFBC71A9E3A6C00D4E03A /* A440.xcdatamodel */,
-			);
-			currentVersion = 906EFBC71A9E3A6C00D4E03A /* A440.xcdatamodel */;
-			path = A440.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 906EFBB41A9E3A6C00D4E03A /* Project object */;
 }
