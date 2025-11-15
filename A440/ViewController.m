@@ -496,15 +496,31 @@
     if ([self.audioPlayer isPlaying]) {
         [self.audioPlayer stop];
     }
-    
+
     NSString *soundFilePath = [NSString stringWithFormat:@"%@/%@.wav", [[NSBundle mainBundle] resourcePath], fileName];
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-    
+
+    NSError *error = nil;
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL
-                                                          error:nil];
-    self.audioPlayer.numberOfLoops = -1; //Infinite
-    
-    [self.audioPlayer play];
+                                                          error:&error];
+
+    if (error) {
+        NSLog(@"Error loading audio file %@: %@", fileName, error.localizedDescription);
+        return;
+    }
+
+    // Prepare audio player for optimal performance
+    [self.audioPlayer prepareToPlay];
+    self.audioPlayer.numberOfLoops = -1; // Infinite loop
+    self.audioPlayer.volume = 1.0f;
+
+    // Store last played file for persistence
+    [[NSUserDefaults standardUserDefaults] setObject:fileName forKey:@"lastFile"];
+
+    BOOL success = [self.audioPlayer play];
+    if (!success) {
+        NSLog(@"Failed to start audio playback for %@", fileName);
+    }
 }
 
 // I wish this worked...
