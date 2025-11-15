@@ -65,6 +65,22 @@
     }
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    // Update colors when Dark Mode changes
+    if (@available(iOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            // Force button colors to update for Dark Mode
+            [self.pianoButton setBackgroundColor:[UIColor appColor]];
+            [self.violinButton setBackgroundColor:[UIColor appColor]];
+            [self.frenchHornButton setBackgroundColor:[UIColor appColor]];
+            [self.sineWaveButton setBackgroundColor:[UIColor appColor]];
+            [self updateViews];
+        }
+    }
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
