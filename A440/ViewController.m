@@ -10,17 +10,18 @@
 #import "UIColor+AppColors.h"
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
-#define kStatusBarHeight (([[UIApplication sharedApplication] statusBarFrame].size.height == 20.0f) ? 20.0f : (([[UIApplication sharedApplication] statusBarFrame].size.height == 40.0f) ? 20.0f : 0.0f))
-#define kScreenHeight (([[UIApplication sharedApplication] statusBarFrame].size.height > 20.0f) ? [UIScreen mainScreen].bounds.size.height - 20.0f : [UIScreen mainScreen].bounds.size.height)
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ANIMATION_DURATION 0.25f
 #define SHORTER_SIDE ((kScreenWidth < kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define LONGER_SIDE ((kScreenWidth > kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define BUTTON_SCALE 0.8f
 #define BUFFER (kScreenWidth * 0.05f)
-#define AVAILABLE_HEIGHT (kScreenHeight - kStatusBarHeight - ((self.adView.bannerLoaded) ? self.adView.frame.size.height : 0.0f))
 #define CORNER_RADIUS_RATIO 8.0f
 
 @interface ViewController ()
+
+@property (nonatomic) CGFloat topSafeAreaInset;
+@property (nonatomic) CGFloat bottomSafeAreaInset;
 
 @end
 
@@ -28,11 +29,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastFile = [defaults objectForKey:@"lastFile"];
     if (!lastFile) [defaults setObject:@"sineWave" forKey:@"lastFile"];
-    
+
     CALayer *layer = [CALayer layer];
     layer.frame = self.view.layer.frame;
     layer.contents = (id)[UIImage imageNamed:@"background.png"].CGImage;
@@ -41,16 +42,34 @@
     gradientOverlay.frame = CGRectMake(0.0f, 0.0f, LONGER_SIDE + 20.0f, LONGER_SIDE + 20.0f);
     gradientOverlay.opacity = 1.0f;
     [self.view.layer addSublayer:gradientOverlay];
-    
+
     [self.view addSubview:self.pianoButton];
     [self.view addSubview:self.violinButton];
     [self.view addSubview:self.frenchHornButton];
     [self.view addSubview:self.sineWaveButton];
-    [self.view addSubview:self.adView];
-    
+
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self  selector:@selector(updateViews)    name:UIDeviceOrientationDidChangeNotification  object:nil];
-    [nc addObserver:self selector:@selector(updateViews) name:UIApplicationWillChangeStatusBarFrameNotification object:nil];
+    [nc addObserver:self selector:@selector(updateViews) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    if (@available(iOS 11.0, *)) {
+        self.topSafeAreaInset = self.view.safeAreaInsets.top;
+        self.bottomSafeAreaInset = self.view.safeAreaInsets.bottom;
+    } else {
+        self.topSafeAreaInset = self.topLayoutGuide.length;
+        self.bottomSafeAreaInset = self.bottomLayoutGuide.length;
+    }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self updateViews];
+    } completion:nil];
 }
 
 - (void)updateViews {
@@ -60,50 +79,31 @@
         [self.violinImageView setFrame:self.violinButton.bounds];
         [self.frenchHornImageView setFrame:self.frenchHornButton.bounds];
         [self.sineWaveImageView setFrame:self.sineWaveButton.bounds];
-        
-        if (self.bannerShouldLayout && self.adView.bannerLoaded) {
-            [self.adView setCenter:CGPointMake(kScreenWidth/2.0f, kScreenHeight - [self.adView frame].size.height/2.0f)];
-        }
-        
-        else if (!self.adView.bannerLoaded) {
-            [self.adView setCenter:CGPointMake(kScreenWidth/2.0f, kScreenHeight + self.adView.frame.size.height)];
-        }
     }];
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
-        self.adView.currentContentSizeIdentifier =
-        ADBannerContentSizeIdentifierLandscape;
-    else
-        self.adView.currentContentSizeIdentifier =
-        ADBannerContentSizeIdentifierPortrait;
 }
 
 
 - (void)layoutButtons {
-    float row1YBuffer = -10.0f;
-    float row2YBuffer = 10.0f;
-    if (kStatusBarHeight > 0.0f) {
-        row1YBuffer = 0.0f;
-        row2YBuffer = 20.0f;
-    }
+    CGFloat availableHeight = kScreenHeight - self.topSafeAreaInset - self.bottomSafeAreaInset;
+    CGFloat row1YBuffer = 0.0f;
+    CGFloat row2YBuffer = 20.0f;
+
     [self.pianoButton setFrame:CGRectMake(BUFFER,
-                                          kStatusBarHeight + BUFFER + row1YBuffer,
+                                          self.topSafeAreaInset + BUFFER + row1YBuffer,
                                           (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                          (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                          (availableHeight/2.0f) * BUTTON_SCALE)];
     [self.violinButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                           kStatusBarHeight + BUFFER + row1YBuffer,
+                                           self.topSafeAreaInset + BUFFER + row1YBuffer,
                                            (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                           (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                           (availableHeight/2.0f) * BUTTON_SCALE)];
     [self.frenchHornButton setFrame:CGRectMake(BUFFER,
-                                               (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight + row2YBuffer,
+                                               (availableHeight/2.0f) + self.topSafeAreaInset + row2YBuffer,
                                                (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                               (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                               (availableHeight/2.0f) * BUTTON_SCALE)];
     [self.sineWaveButton setFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                             (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight + row2YBuffer,
+                                             (availableHeight/2.0f) + self.topSafeAreaInset + row2YBuffer,
                                              (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                             (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                             (availableHeight/2.0f) * BUTTON_SCALE)];
     float scale = 0.98f;
     [self scaleView:self.pianoButton to:scale];
     [self scaleView:self.violinButton to:scale];
@@ -164,11 +164,12 @@
 
 - (A4InstrumentView *)pianoButton {
     if (!_pianoButton) {
+        CGFloat availableHeight = kScreenHeight - self.topSafeAreaInset - self.bottomSafeAreaInset;
         _pianoButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(BUFFER,
-                                                                kStatusBarHeight + BUFFER,
+                                                                self.topSafeAreaInset + BUFFER,
                                                                 (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                                (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
-        
+                                                                (availableHeight/2.0f) * BUTTON_SCALE)];
+
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                      action:@selector(tapped:)];
         [_pianoButton addGestureRecognizer:tapGesture];
@@ -177,10 +178,10 @@
         [longPress setMinimumPressDuration:0.25f];
         [_pianoButton addGestureRecognizer:longPress];
         [_pianoButton addSubview:self.pianoImageView];
-        
+
         [_pianoButton setBackgroundColor:[UIColor appColor]];
     }
-    
+
     return _pianoButton;
 }
 
@@ -197,10 +198,11 @@
 
 - (A4InstrumentView *)violinButton {
     if (!_violinButton) {
+        CGFloat availableHeight = kScreenHeight - self.topSafeAreaInset - self.bottomSafeAreaInset;
         _violinButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                                                 kStatusBarHeight + BUFFER,
+                                                                 self.topSafeAreaInset + BUFFER,
                                                                  (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                                 (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                                                 (availableHeight/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [_violinButton addGestureRecognizer:tapGesture];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -208,10 +210,10 @@
         [longPress setMinimumPressDuration:0.25f];
         [_violinButton addGestureRecognizer:longPress];
         [_violinButton addSubview:self.violinImageView];
-        
+
         [_violinButton setBackgroundColor:[UIColor appColor]];
     }
-    
+
     return _violinButton;
 }
 
@@ -228,10 +230,11 @@
 
 - (A4InstrumentView *)frenchHornButton {
     if (!_frenchHornButton) {
+        CGFloat availableHeight = kScreenHeight - self.topSafeAreaInset - self.bottomSafeAreaInset;
         _frenchHornButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(BUFFER,
-                                                               (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
+                                                               (availableHeight/2.0f) + self.topSafeAreaInset,
                                                                (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                               (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                                               (availableHeight/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [_frenchHornButton addGestureRecognizer:tapGesture];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -242,7 +245,7 @@
 
         [_frenchHornButton setBackgroundColor:[UIColor appColor]];
     }
-    
+
     return _frenchHornButton;
 }
 
@@ -259,10 +262,11 @@
 
 - (A4InstrumentView *)sineWaveButton {
     if (!_sineWaveButton) {
+        CGFloat availableHeight = kScreenHeight - self.topSafeAreaInset - self.bottomSafeAreaInset;
         _sineWaveButton = [[A4InstrumentView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0f + BUFFER,
-                                                                   (AVAILABLE_HEIGHT/2.0f) + kStatusBarHeight,
+                                                                   (availableHeight/2.0f) + self.topSafeAreaInset,
                                                                    (kScreenWidth/2.0f) * BUTTON_SCALE,
-                                                                   (AVAILABLE_HEIGHT/2.0f) * BUTTON_SCALE)];
+                                                                   (availableHeight/2.0f) * BUTTON_SCALE)];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         [_sineWaveButton addGestureRecognizer:tapGesture];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -270,10 +274,10 @@
         [longPress setMinimumPressDuration:0.25f];
         [_sineWaveButton addGestureRecognizer:longPress];
         [_sineWaveButton addSubview:self.sineWaveImageView];
-        
+
         [_sineWaveButton setBackgroundColor:[UIColor appColor]];
     }
-    
+
     return _sineWaveButton;
 }
 
@@ -286,17 +290,6 @@
     }
     
     return _sineWaveImageView;
-}
-
-- (ADBannerView *)adView {
-    if (!_adView) {
-        _adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        [_adView setAutoresizingMask:UIViewAutoresizingFlexibleWidth |UIViewAutoresizingFlexibleBottomMargin];
-        [_adView setDelegate:self];
-        self.bannerShouldLayout = YES;
-    }
-    
-    return _adView;
 }
 
 #pragma mark - Audio Player
@@ -432,33 +425,6 @@
         [self.audioPlayer stop];
         [self.audioPlayer setVolume:1.0f];
     }
-}
-
-#pragma mark - Ad Banner Delegate
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
-    if (!willLeave) {
-        [self fadeAudioOut:[NSNumber numberWithFloat:self.audioPlayer.volume]];
-        [self resetButtons];
-        [self updateViews];
-    }
-    
-    return YES;
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-    [self updateViews];
-}
-
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
-//    self.bannerShouldLayout = YES;
-    [self updateViews];
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    NSLog(@"iAD error: didFailToReceiveAdWithError: %@", error);
-    
-    [self updateViews];
 }
 
 #pragma mark - gradient
