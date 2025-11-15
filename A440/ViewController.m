@@ -31,6 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Configure audio session for playback
+    [self configureAudioSession];
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *lastFile = [defaults objectForKey:@"lastFile"];
     if (!lastFile) [defaults setObject:@"sineWave" forKey:@"lastFile"];
@@ -51,6 +54,12 @@
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(updateViews) name:UIDeviceOrientationDidChangeNotification object:nil];
+
+    // Listen for audio interruptions (phone calls, alarms, etc.)
+    [nc addObserver:self
+           selector:@selector(handleAudioInterruption:)
+               name:AVAudioSessionInterruptionNotification
+             object:[AVAudioSession sharedInstance]];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -331,6 +340,50 @@
     }
     
     return _sineWaveImageView;
+}
+
+#pragma mark - Audio Session
+
+- (void)configureAudioSession {
+    NSError *error = nil;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+
+    // Set category to playback - allows audio to play even when silent switch is on
+    BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback
+                                         mode:AVAudioSessionModeDefault
+                                      options:0
+                                        error:&error];
+
+    if (!success || error) {
+        NSLog(@"Error setting audio session category: %@", error.localizedDescription);
+    }
+
+    // Activate the audio session
+    success = [audioSession setActive:YES error:&error];
+    if (!success || error) {
+        NSLog(@"Error activating audio session: %@", error.localizedDescription);
+    }
+}
+
+- (void)handleAudioInterruption:(NSNotification *)notification {
+    NSNumber *interruptionType = notification.userInfo[AVAudioSessionInterruptionTypeKey];
+
+    if (interruptionType.unsignedIntegerValue == AVAudioSessionInterruptionTypeBegan) {
+        // Audio interrupted (phone call, alarm, etc.) - stop playback
+        if ([self.audioPlayer isPlaying]) {
+            [self.audioPlayer stop];
+            [self resetButtons];
+            [self animateButtons];
+        }
+    } else if (interruptionType.unsignedIntegerValue == AVAudioSessionInterruptionTypeEnded) {
+        // Interruption ended - optionally resume playback
+        // For this app, we don't auto-resume - user must tap again
+        NSError *error = nil;
+        [[AVAudioSession sharedInstance] setActive:YES error:&error];
+        if (error) {
+            NSLog(@"Error reactivating audio session: %@", error.localizedDescription);
+        }
+    }
 }
 
 #pragma mark - Audio Player
