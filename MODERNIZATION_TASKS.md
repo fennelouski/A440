@@ -4,8 +4,44 @@
 **App Name:** A440 - Musical Reference Tone Generator
 **Original Version:** 1.0.5 (Created: February 2015)
 **Original Target:** iOS 8.0 (Objective-C)
-**New Target:** iOS 12.0+ (Compatible with iOS 17+)
-**Last Updated:** 2025-11-15
+**Current Target:** iOS 14.0+ (builds against the iOS 26 SDK)
+**Last Updated:** 2026-07-21
+
+---
+
+## 2026 VISUAL REFRESH ✅
+
+A full repaint of the UI. All behaviour was preserved: tap to play / tap again to
+stop, long-press, last-instrument persistence, audio-session and interruption
+handling, VoiceOver, and rotation.
+
+**Design**
+- New adaptive colour system in `UIColor+AppColors` — light mode lifts toward white;
+  dark mode is a **rich spruce green**, not near-black, with cards as translucent glass
+  that picks up the ground. Four instrument accents (piano indigo, violin coral,
+  french horn brass, sine teal), brightened in dark mode to hold up against the green.
+- `A4InstrumentView` rebuilt as a self-contained card: continuous-curvature corners,
+  soft shadow, code-drawn vector instrument glyph, name + `440 Hz`, play/pause affordance.
+- The photographic instrument images (2015 Wikipedia stock) were replaced by
+  vector glyphs drawn with `UIBezierPath`, so they stay crisp and tint per state.
+- Clear playing state: the active card fills with its accent, the glyph turns white,
+  the other cards dim, and the header reports what is sounding.
+- Playing animations: the sine wave travels, and the piano holds down its A key.
+- Header (tuning-fork mark, title, live status) and footer added; the app previously had no text.
+- Haptic feedback on each tap.
+
+**Correctness / platform**
+- **Fixed letterboxing on modern iPhones.** The app had no launch storyboard, so iOS
+  fell back to legacy launch images and ran it in compatibility mode (safe-area insets
+  were effectively unused). Now uses the `UILaunchScreen` Info.plist key.
+- Removed the dead `background.png` layer reference (the file never existed).
+- Removed the 2015 `Main.storyboard` and `LaunchScreen.xib`; the window is created
+  programmatically in `AppDelegate`.
+- New app icon (tuning fork) as a single 1024×1024 master; Xcode derives the rest.
+- Dropped ~1.5 MB of unused instrument photography and ~600 KB of legacy launch images.
+- Deployment target 12.0 → 14.0; `PRODUCT_BUNDLE_IDENTIFIER` set explicitly
+  (bundle id unchanged: `com.nathanfennel.A440`).
+- Both targets build with **zero warnings**.
 
 ---
 
@@ -324,25 +360,20 @@
 ### 4. Testing & Quality Assurance
 
 #### 4.1 Expand Unit Tests
-**Status:** ⏳ TODO
+**Status:** ✅ COMPLETED (2026-07-21)
 **Priority:** MEDIUM
 **Feature:** Add comprehensive test coverage
 
-**Affected Files:**
-- `A440Tests/A440Tests.m` - Current minimal tests
-- New test files for each component
+**What was done:** replaced the 2015 template tests in `A440Tests/A440Tests.m`
+with a 14-test suite hosted inside the app, covering:
+- All four audio files present in the bundle, loadable by `AVAudioPlayer`, and of plausible duration
+- Instrument → audio-file / display-name mapping, and that every card's file resolves
+- Playing state toggling, including across the legacy-design swap
+- The full color system resolving, dark-mode adaptation, fixed legacy colors, hex helper, darkening helper
+- App wiring: programmatic window + root `ViewController`, first-launch defaults seeding
+- Accessibility: four cards on screen, each a labeled VoiceOver button with a hint
 
-**Implementation Steps:**
-1. Add tests for button interaction logic
-2. Add tests for audio file loading
-3. Add tests for user defaults persistence
-4. Aim for 70%+ code coverage
-
-**Acceptance Criteria:**
-- [ ] 70%+ code coverage
-- [ ] All critical paths tested
-- [ ] Tests pass on iOS 12, 15, and 17
-- [ ] Automated testing in CI/CD (if applicable)
+**Result:** `xcodebuild test` on the iOS 26.5 simulator — 14/14 passing.
 
 ---
 
@@ -484,7 +515,7 @@
 - ⏳ Dynamic Type support (LOW - no text in UI)
 - ⏳ Safe Area layout enhancements (LOW - works well currently)
 - ⏳ AutoLayout implementation (LOW - manual layout functional)
-- ⏳ Unit test expansion (MEDIUM)
+- ✅ Unit test expansion — 14-test suite passing (2026-07-21)
 - ⏳ UI tests (LOW)
 - ⏳ Launch screen modernization (LOW)
 - 💡 Swift migration (FUTURE)

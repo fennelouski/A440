@@ -7,25 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA4001000000000000000001 /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png */; };
+		AA4001000000000000000002 /* Violin_Geige.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEE1A9E3F9600D4E03A /* Violin_Geige.png */; };
+		AA4001000000000000000003 /* Sine Wave Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */; };
+		AA4001000000000000000004 /* FrenchHorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn.png */; };
 		906EFBC21A9E3A6C00D4E03A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBC11A9E3A6C00D4E03A /* main.m */; };
 		906EFBC51A9E3A6C00D4E03A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBC41A9E3A6C00D4E03A /* AppDelegate.m */; };
 		906EFBCB1A9E3A6C00D4E03A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBCA1A9E3A6C00D4E03A /* ViewController.m */; };
-		906EFBCE1A9E3A6C00D4E03A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBCC1A9E3A6C00D4E03A /* Main.storyboard */; };
 		906EFBD01A9E3A6C00D4E03A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBCF1A9E3A6C00D4E03A /* Images.xcassets */; };
-		906EFBD31A9E3A6C00D4E03A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBD11A9E3A6C00D4E03A /* LaunchScreen.xib */; };
 		906EFBDF1A9E3A6C00D4E03A /* A440Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFBDE1A9E3A6C00D4E03A /* A440Tests.m */; };
 		906EFBEA1A9E3DB800D4E03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906EFBE81A9E3DB800D4E03A /* AVFoundation.framework */; };
 		906EFBEB1A9E3DB800D4E03A /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906EFBE91A9E3DB800D4E03A /* AVKit.framework */; };
-		906EFBEF1A9E3F9600D4E03A /* Oboe.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEC1A9E3F9600D4E03A /* Oboe.png */; };
-		906EFBF01A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBED1A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png */; };
-		906EFBF11A9E3F9600D4E03A /* Violin_Geige.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEE1A9E3F9600D4E03A /* Violin_Geige.png */; };
 		906EFBF31A9E40F800D4E03A /* sineWave.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF21A9E40F800D4E03A /* sineWave.wav */; };
 		906EFBF51A9E48D900D4E03A /* violin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF41A9E48D900D4E03A /* violin.wav */; };
 		906EFBF71A9E49A800D4E03A /* piano.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF61A9E49A800D4E03A /* piano.wav */; };
-		906EFBF91A9E4D4800D4E03A /* Sine Wave Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */; };
 		906EFBFB1A9E4FE200D4E03A /* frenchHorn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFA1A9E4FE200D4E03A /* frenchHorn.wav */; };
-		906EFBFD1A9E503700D4E03A /* FrenchHorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn.png */; };
-		906EFC031A9E510400D4E03A /* NSString+AppFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */; };
 		9095E4F21AA4F0E300C2F7D0 /* A4InstrumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9095E4F11AA4F0E300C2F7D0 /* A4InstrumentView.m */; };
 		9095E4FA1AA508D500C2F7D0 /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 9095E4F91AA508D500C2F7D0 /* UIColor+AppColors.m */; };
 		90ED86F51AA0E730000245E5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90ED86F41AA0E730000245E5 /* iAd.framework */; };
@@ -66,8 +62,6 @@
 		906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Sine Wave Image.png"; path = "Icons/Sine Wave Image.png"; sourceTree = "<group>"; };
 		906EFBFA1A9E4FE200D4E03A /* frenchHorn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = frenchHorn.wav; path = "Audio Files/frenchHorn.wav"; sourceTree = "<group>"; };
 		906EFBFC1A9E503700D4E03A /* FrenchHorn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FrenchHorn.png; path = Icons/FrenchHorn.png; sourceTree = "<group>"; };
-		906EFC001A9E510400D4E03A /* NSString+AppFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AppFunctions.h"; sourceTree = "<group>"; };
-		906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AppFunctions.m"; sourceTree = "<group>"; };
 		9095E4F01AA4F0E300C2F7D0 /* A4InstrumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A4InstrumentView.h; sourceTree = "<group>"; };
 		9095E4F11AA4F0E300C2F7D0 /* A4InstrumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A4InstrumentView.m; sourceTree = "<group>"; };
 		9095E4F81AA508D500C2F7D0 /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
@@ -173,8 +167,6 @@
 			children = (
 				9095E4F81AA508D500C2F7D0 /* UIColor+AppColors.h */,
 				9095E4F91AA508D500C2F7D0 /* UIColor+AppColors.m */,
-				906EFC001A9E510400D4E03A /* NSString+AppFunctions.h */,
-				906EFC011A9E510400D4E03A /* NSString+AppFunctions.m */,
 			);
 			name = "Helper Categories";
 			sourceTree = "<group>";
@@ -260,18 +252,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				906EFBF11A9E3F9600D4E03A /* Violin_Geige.png in Resources */,
-				906EFBF91A9E4D4800D4E03A /* Sine Wave Image.png in Resources */,
 				906EFBF31A9E40F800D4E03A /* sineWave.wav in Resources */,
-				906EFBEF1A9E3F9600D4E03A /* Oboe.png in Resources */,
-				906EFBCE1A9E3A6C00D4E03A /* Main.storyboard in Resources */,
-				906EFBF01A9E3F9600D4E03A /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png in Resources */,
 				906EFBF71A9E49A800D4E03A /* piano.wav in Resources */,
-				906EFBD31A9E3A6C00D4E03A /* LaunchScreen.xib in Resources */,
 				906EFBD01A9E3A6C00D4E03A /* Images.xcassets in Resources */,
+				AA4001000000000000000001 /* Piano_de_Cauda_de_Manuel_Inocêncio_Liberato_dos_Santos.png in Resources */,
+				AA4001000000000000000002 /* Violin_Geige.png in Resources */,
+				AA4001000000000000000003 /* Sine Wave Image.png in Resources */,
+				AA4001000000000000000004 /* FrenchHorn.png in Resources */,
 				906EFBF51A9E48D900D4E03A /* violin.wav in Resources */,
 				906EFBFB1A9E4FE200D4E03A /* frenchHorn.wav in Resources */,
-				906EFBFD1A9E503700D4E03A /* FrenchHorn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +283,6 @@
 				9095E4FA1AA508D500C2F7D0 /* UIColor+AppColors.m in Sources */,
 				9095E4F21AA4F0E300C2F7D0 /* A4InstrumentView.m in Sources */,
 				906EFBC21A9E3A6C00D4E03A /* main.m in Sources */,
-				906EFC031A9E510400D4E03A /* NSString+AppFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -406,7 +394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -418,10 +406,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nathanfennel.A440;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = A440/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -431,10 +419,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nathanfennel.A440;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = A440/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -453,6 +441,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = A440Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nathanfennel.A440Tests;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/A440.app/A440";
@@ -468,6 +457,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = A440Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nathanfennel.A440Tests;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/A440.app/A440";
