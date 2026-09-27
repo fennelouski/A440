@@ -11,6 +11,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, A4Instrument) {
     A4InstrumentPiano,
     A4InstrumentViolin,
@@ -44,3 +46,5 @@ UIFont *A4RoundedFont(CGFloat size, UIFontWeight weight);
 - (void)updateForCurrentTraits;
 
 @end
+
+NS_ASSUME_NONNULL_END

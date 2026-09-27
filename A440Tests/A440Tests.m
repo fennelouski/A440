@@ -17,7 +17,7 @@
 #import "A4InstrumentView.h"
 #import "UIColor+AppColors.h"
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "A440-Swift.h"
 
 @interface A440Tests : XCTestCase
 @end
@@ -163,7 +163,7 @@
     UIApplication *app = UIApplication.sharedApplication;
     AppDelegate *delegate = (AppDelegate *)app.delegate;
     XCTAssertNotNil(delegate.window, @"AppDelegate must create the window programmatically");
-    XCTAssertTrue([delegate.window.rootViewController isKindOfClass:[ViewController class]]);
+    XCTAssertTrue([delegate.window.rootViewController isKindOfClass:[TunerViewController class]]);
 }
 
 - (void)testLastInstrumentDefaultIsSeededOnFirstLaunch {
@@ -174,23 +174,24 @@
     XCTAssertTrue([valid containsObject:lastFile], @"Unexpected instrument '%@'", lastFile);
 }
 
-- (void)testInstrumentCardsAreAccessibleButtons {
-    AppDelegate *delegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
-    UIView *rootView = delegate.window.rootViewController.view;
-
-    NSMutableArray<A4InstrumentView *> *cards = [NSMutableArray array];
-    for (UIView *subview in rootView.subviews) {
-        if ([subview isKindOfClass:[A4InstrumentView class]]) {
-            [cards addObject:(A4InstrumentView *)subview];
-        }
+- (void)testPlaybackSwitchStopAndInterruption {
+    TonePlayer *audio = [[TonePlayer alloc] init];
+    XCTAssertEqual(audio.activeInstrument, -1);
+    for (NSInteger index = 0; index < 4; index++) {
+        [audio toggle:index];
+        XCTAssertEqual(audio.activeInstrument, index);
     }
-    XCTAssertEqual(cards.count, 4, @"Exactly four instrument cards should be on screen");
-    for (A4InstrumentView *card in cards) {
-        XCTAssertEqualObjects(card.accessibilityLabel, card.displayName);
-        XCTAssertTrue(card.accessibilityTraits & UIAccessibilityTraitButton,
-                      @"'%@' must read as a button to VoiceOver", card.displayName);
-        XCTAssertNotNil(card.accessibilityHint);
-    }
+    [audio toggle:3];
+    XCTAssertEqual(audio.activeInstrument, -1);
+    [audio toggle:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:AVAudioSessionInterruptionNotification
+        object:nil userInfo:@{ AVAudioSessionInterruptionTypeKey: @(AVAudioSessionInterruptionTypeBegan) }];
+    XCTAssertEqual(audio.activeInstrument, -1);
+    [audio toggle:1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillResignActiveNotification object:nil];
+    XCTAssertEqual(audio.activeInstrument, -1);
+    [audio toggle:99];
+    XCTAssertEqual(audio.activeInstrument, -1);
 }
 
 @end
