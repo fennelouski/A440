@@ -97,7 +97,7 @@ struct TunerView: View {
                         Spacer()
                         Menu {
                             Toggle("Original 2015 design", isOn: $legacy)
-                            Link("Privacy Policy", destination: URL(string: "https://github.com/fennelouski/A440/blob/master/PRIVACY.md")!)
+                            Link("Privacy Policy", destination: URL(string: "https://nathanfennel.com/a440/privacy")!)
                             Link("Support", destination: URL(string: "https://nathanfennel.com/contact")!)
                         } label: {
                             Image(systemName: "ellipsis.circle").font(.title2).frame(width: 44, height: 44)
