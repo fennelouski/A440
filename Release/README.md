@@ -1,6 +1,6 @@
 # A4402.0.0 build3
 
-The Options icon now uses the adaptive primary foreground color. Actual dark-mode UI review found that the inherited fixed green tint was difficult to see over the dark green background. The label-only change preserves the Stop button style and the four original WAV recordings.
+The Options icon now uses the explicit adaptive `Color.primary` foreground color. A first `.foregroundStyle(.primary)` attempt still inherited the low-contrast tint in actual dark-mode UI and is superseded. Actual dark-mode UI review found that the inherited fixed green tint was difficult to see over the dark green background. The label-only change preserves the Stop button style and the four original WAV recordings.
 
 Validate by compiling the Release archive and checking its strict signature, bundle/version/build and unchanged audio-resource hashes. The existing UIKit-hosted tests include TonePlayer switching, stopping and simulated interruption; their current execution requires a separate runtime session. Prior14-test evidence is not new verification of this build.
 
