@@ -86,6 +86,10 @@ struct TunerView: View {
     private let names = ["Piano", "Violin", "French Horn", "Sine Wave"]
 
     var body: some View {
+        Group {
+        #if os(visionOS)
+        visionToneWorkspace
+        #else
         GeometryReader { geometry in
             ScrollView {
                 VStack(spacing: 24) {
@@ -140,14 +144,55 @@ struct TunerView: View {
             }
             .background(LinearGradient(colors: [Color(uiColor: .a4BackgroundTop()), Color(uiColor: .a4BackgroundBottom())], startPoint: .top, endPoint: .bottom).ignoresSafeArea())
         }
+        #endif
+        }
         .tint(Color(uiColor: .a4BrandBottom()))
         .onChange(of: scenePhase) { _, phase in if phase != .active { audio.stop() } }
         .alert("Unable to play tone", isPresented: Binding(get: { audio.errorMessage != nil }, set: { if !$0 { audio.errorMessage = nil } })) {
             Button("OK") { audio.errorMessage = nil }
         } message: { Text(audio.errorMessage ?? "") }
     }
+
+    #if os(visionOS)
+    private var visionToneWorkspace: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 28) {
+                HStack(alignment: .firstTextBaseline, spacing: 24) {
+                    Text("440").font(.system(size: 76, weight: .bold, design: .rounded)).monospacedDigit()
+                    Text("Hz").font(.title)
+                    Spacer(minLength: 16)
+                    Label(audio.activeInstrument < 0 ? "Ready" : names[audio.activeInstrument], systemImage: audio.activeInstrument < 0 ? "tuningfork" : "waveform")
+                        .font(.headline).fixedSize(horizontal: false, vertical: true)
+                }.accessibilityElement(children: .combine)
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 240), spacing: 24)], spacing: 24) {
+                    ForEach(0..<4) { index in
+                        Button { audio.toggle(index) } label: {
+                            InstrumentArtwork(index: index, playing: audio.activeInstrument == index, legacy: legacy)
+                                .frame(height: 260)
+                        }
+                        .buttonStyle(.plain).hoverEffect()
+                        .accessibilityLabel(names[index])
+                        .accessibilityValue(audio.activeInstrument == index ? "Playing" : "Stopped")
+                    }
+                }
+            }.padding(32)
+        }
+        .ornament(attachmentAnchor: .scene(.bottom)) {
+            HStack(spacing: 20) {
+                Button("Stop", systemImage: "stop.fill", action: audio.stop)
+                    .disabled(audio.activeInstrument < 0).keyboardShortcut(".", modifiers: .command)
+                Toggle("Original artwork", isOn: $legacy).toggleStyle(.button)
+                Menu {
+                    Link("Privacy Policy", destination: URL(string: "https://nathanfennel.com/a440/privacy")!)
+                    Link("Support", destination: URL(string: "https://nathanfennel.com/contact")!)
+                } label: { Label("About", systemImage: "info.circle") }
+            }.buttonStyle(.bordered).controlSize(.large).padding(16).glassBackgroundEffect()
+        }
+    }
+    #endif
 }
 
+#if os(iOS)
 @objc final class TunerViewController: UIViewController {
     private let hosting = UIHostingController(rootView: TunerView())
     @objc init() { super.init(nibName: nil, bundle: nil) }
@@ -169,3 +214,4 @@ struct TunerView: View {
         } else { super.motionEnded(motion, with: event) }
     }
 }
+#endif

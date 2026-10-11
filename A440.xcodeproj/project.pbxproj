@@ -26,6 +26,70 @@
 		AA4001000000000000000002 /* Violin_Geige.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBEE1A9E3F9600D4E03A /* Violin_Geige.png */; };
 		AA4001000000000000000003 /* Sine Wave Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBF81A9E4D4800D4E03A /* Sine Wave Image.png */; };
 		AA4001000000000000000004 /* FrenchHorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 906EFBFC1A9E503700D4E03A /* FrenchHorn.png */; };
+		2AB9D6AF3109C57675CECB85 = {
+			isa = "PBXBuildFile";
+			fileRef = "9095E4F91AA508D500C2F7D0";
+		};
+		F47D924CA046C7EDC1F66498 = {
+			isa = "PBXBuildFile";
+			fileRef = "9095E4F11AA4F0E300C2F7D0";
+		};
+		285C2F168DC9141B80CE4020 = {
+			isa = "PBXBuildFile";
+			fileRef = "AA4400000000000000000002";
+		};
+		A3B14D4E76B4CE000EA07598 = {
+			isa = "PBXBuildFile";
+			fileRef = "CF0B196299EE5412DD548120";
+		};
+		9D3E35872EB493641724E797 = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBE81A9E3DB800D4E03A";
+		};
+		67C79CC3A0A3F544052F24DA = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBE91A9E3DB800D4E03A";
+		};
+		8E922B586C040AD6415FFFAB = {
+			isa = "PBXBuildFile";
+			fileRef = "AA4400000000000000000004";
+		};
+		11B610D75A110CF9742CAE9A = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBF21A9E40F800D4E03A";
+		};
+		6BA5789E89D4F88C200B4C30 = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBF61A9E49A800D4E03A";
+		};
+		D018FEF9CA6BE8A057618E7C = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBCF1A9E3A6C00D4E03A";
+		};
+		35960169E55AC80F613DAD16 = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBED1A9E3F9600D4E03A";
+		};
+		23C7DDA9B79C76DDC3A1C467 = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBEE1A9E3F9600D4E03A";
+		};
+		A1B4291D7A99A1B5426DE04D = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBF81A9E4D4800D4E03A";
+		};
+		947B45487D33482A9154B05D = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBFC1A9E503700D4E03A";
+		};
+		CA659F7BC27932732A861751 = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBF41A9E48D900D4E03A";
+		};
+		50F59CFE133D94A02EF305A8 = {
+			isa = "PBXBuildFile";
+			fileRef = "906EFBFA1A9E4FE200D4E03A";
+		};
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +133,19 @@
 		9095E4F11AA4F0E300C2F7D0 /* A4InstrumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A4InstrumentView.m; sourceTree = "<group>"; };
 		9095E4F81AA508D500C2F7D0 /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
 		9095E4F91AA508D500C2F7D0 /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
+		CF0B196299EE5412DD548120 = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "Vision/A440VisionApp.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		B1FDF79AEFE04E5035CBEC71 = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.application";
+			path = "A440.app";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+			includeInIndex = 0;
+		};
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +165,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7F0BC3371B9EDA73F7480437 = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("9D3E35872EB493641724E797", "67C79CC3A0A3F544052F24DA");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -99,6 +182,7 @@
 				906EFBBE1A9E3A6C00D4E03A /* A440 */,
 				906EFBDB1A9E3A6C00D4E03A /* A440Tests */,
 				906EFBBD1A9E3A6C00D4E03A /* Products */,
+				CF0B196299EE5412DD548120,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,6 +191,7 @@
 			children = (
 				906EFBBC1A9E3A6C00D4E03A /* A440.app */,
 				906EFBD81A9E3A6C00D4E03A /* A440Tests.xctest */,
+				B1FDF79AEFE04E5035CBEC71,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,6 +298,17 @@
 			productReference = 906EFBD81A9E3A6C00D4E03A /* A440Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C8F5FD614514989B6AED987F = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "048DC0355187C92A0EA76FF7";
+			buildPhases = ("A0F9C2492AD2D66CD2101177", "7F0BC3371B9EDA73F7480437", "172F70ADD412677B279B2852");
+			buildRules = ();
+			dependencies = ();
+			name = "A440 visionOS";
+			productName = "A440";
+			productReference = "B1FDF79AEFE04E5035CBEC71";
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -248,6 +344,7 @@
 			targets = (
 				906EFBBB1A9E3A6C00D4E03A /* A440 */,
 				906EFBD71A9E3A6C00D4E03A /* A440Tests */,
+				C8F5FD614514989B6AED987F,
 			);
 		};
 /* End PBXProject section */
@@ -277,6 +374,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		172F70ADD412677B279B2852 = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("8E922B586C040AD6415FFFAB", "11B610D75A110CF9742CAE9A", "6BA5789E89D4F88C200B4C30", "D018FEF9CA6BE8A057618E7C", "35960169E55AC80F613DAD16", "23C7DDA9B79C76DDC3A1C467", "A1B4291D7A99A1B5426DE04D", "947B45487D33482A9154B05D", "CA659F7BC27932732A861751", "50F59CFE133D94A02EF305A8");
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -299,6 +402,12 @@
 			files = (
 				906EFBDF1A9E3A6C00D4E03A /* A440Tests.m in Sources */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0F9C2492AD2D66CD2101177 = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ("2AB9D6AF3109C57675CECB85", "F47D924CA046C7EDC1F66498", "285C2F168DC9141B80CE4020", "A3B14D4E76B4CE000EA07598");
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
@@ -483,6 +592,48 @@
 			};
 			name = Release;
 		};
+		E98118670C643255EB0610A3 = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				DEVELOPMENT_TEAM = "EJLR2RPSV2";
+				TARGETED_DEVICE_FAMILY = "7";
+				INFOPLIST_FILE = "Vision/Info.plist";
+				ENABLE_TESTABILITY = "YES";
+				SWIFT_OBJC_BRIDGING_HEADER = "A440/A440-Bridging-Header.h";
+				PRODUCT_NAME = "A440";
+				SWIFT_VERSION = "5.0";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "VisionIcon";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.A440";
+				SDKROOT = "xros";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				XROS_DEPLOYMENT_TARGET = "2.0";
+				CODE_SIGN_STYLE = "Automatic";
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = "NO";
+			};
+			name = "Debug";
+		};
+		910CB6602CCC50552870B9AE = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				DEVELOPMENT_TEAM = "EJLR2RPSV2";
+				TARGETED_DEVICE_FAMILY = "7";
+				INFOPLIST_FILE = "Vision/Info.plist";
+				ENABLE_TESTABILITY = "NO";
+				SWIFT_OBJC_BRIDGING_HEADER = "A440/A440-Bridging-Header.h";
+				PRODUCT_NAME = "A440";
+				SWIFT_VERSION = "5.0";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "VisionIcon";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.A440";
+				SDKROOT = "xros";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				XROS_DEPLOYMENT_TARGET = "2.0";
+				CODE_SIGN_STYLE = "Automatic";
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = "NO";
+			};
+			name = "Release";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -512,6 +663,12 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		048DC0355187C92A0EA76FF7 = {
+			isa = "XCConfigurationList";
+			buildConfigurations = ("E98118670C643255EB0610A3", "910CB6602CCC50552870B9AE");
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
 		};
 /* End XCConfigurationList section */
 	};
