@@ -177,7 +177,7 @@ static const NSTimeInterval kDesignSwapDuration = 0.45;
 - (void)setUpFooter {
     self.footerLabel = [[UILabel alloc] init];
     self.footerLabel.textAlignment = NSTextAlignmentCenter;
-    self.footerLabel.numberOfLines = 2;
+    self.footerLabel.numberOfLines = 0;
     self.footerLabel.text = @"440 Hz concert A · tap to play, tap again to stop\nShake to compare with the 2015 design";
     self.footerLabel.isAccessibilityElement = NO;
     [self.view addSubview:self.footerLabel];
