@@ -115,11 +115,15 @@ struct TunerView: View {
                     .font(.headline)
                     .accessibilityElement(children: .combine)
 
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 18), count: typeSize.isAccessibilitySize ? 1 : 2), spacing: 18) {
+                    // Wide, short space (iPhone Duo unfolded in landscape, any iPhone in landscape): one row of four.
+                    // Even column counts keep the centre gap over the Duo's fold.
+                    let wide = !typeSize.isAccessibilitySize && geometry.size.width > geometry.size.height * 1.25
+                    let rows: CGFloat = wide ? 1 : 2
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 18), count: typeSize.isAccessibilitySize ? 1 : (wide ? 4 : 2)), spacing: 18) {
                         ForEach(0..<4) { index in
                             Button { audio.toggle(index) } label: {
                                 InstrumentArtwork(index: index, playing: audio.activeInstrument == index, legacy: legacy)
-                                    .frame(height: max(220, min(380, (geometry.size.height - 230) / 2)))
+                                    .frame(height: max(wide ? 160 : 220, min(380, (geometry.size.height - 230) / rows)))
                                     .overlay(alignment: .topTrailing) {
                                         if audio.activeInstrument == index {
                                             Image(systemName: "speaker.wave.2.fill")
@@ -193,6 +197,18 @@ struct TunerView: View {
 }
 
 #if os(iOS)
+// Scene lifecycle: required on iOS 27, and the window tracks the scene's live size on iPhone Duo fold/unfold.
+@objc(A440SceneDelegate) final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options: UIScene.ConnectionOptions) {
+        guard let scene = scene as? UIWindowScene else { return }
+        let window = UIWindow(windowScene: scene)
+        window.rootViewController = TunerViewController()
+        window.makeKeyAndVisible()
+        self.window = window
+    }
+}
+
 @objc final class TunerViewController: UIViewController {
     private let hosting = UIHostingController(rootView: TunerView())
     @objc init() { super.init(nibName: nil, bundle: nil) }

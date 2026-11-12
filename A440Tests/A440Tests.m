@@ -160,10 +160,11 @@
 #pragma mark - App wiring
 
 - (void)testWindowHasViewControllerAsRoot {
-    UIApplication *app = UIApplication.sharedApplication;
-    AppDelegate *delegate = (AppDelegate *)app.delegate;
-    XCTAssertNotNil(delegate.window, @"AppDelegate must create the window programmatically");
-    XCTAssertTrue([delegate.window.rootViewController isKindOfClass:[TunerViewController class]]);
+    UIWindowScene *scene = (UIWindowScene *)UIApplication.sharedApplication.connectedScenes.anyObject;
+    XCTAssertTrue([scene isKindOfClass:[UIWindowScene class]], @"The app must use the scene lifecycle (required on iOS 27 / iPhone Duo)");
+    UIWindow *window = scene.keyWindow;
+    XCTAssertNotNil(window, @"The scene delegate must create the window");
+    XCTAssertTrue([window.rootViewController isKindOfClass:[TunerViewController class]]);
 }
 
 - (void)testLastInstrumentDefaultIsSeededOnFirstLaunch {
