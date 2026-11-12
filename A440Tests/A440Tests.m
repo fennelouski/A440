@@ -167,6 +167,14 @@
     XCTAssertTrue([window.rootViewController isKindOfClass:[TunerViewController class]]);
 }
 
+- (void)testExternalDisplaysGetTheirOwnLayout {
+    NSDictionary *configs = NSBundle.mainBundle.infoDictionary[@"UIApplicationSceneManifest"][@"UISceneConfigurations"];
+    NSString *name = [configs[UIWindowSceneSessionRoleExternalDisplayNonInteractive] firstObject][@"UISceneDelegateClassName"];
+    XCTAssertEqualObjects(name, @"A440ExternalSceneDelegate");
+    XCTAssertTrue([NSClassFromString(name) conformsToProtocol:@protocol(UIWindowSceneDelegate)],
+                  @"AirPlay/external screens must get a scene delegate, not a mirror of the phone");
+}
+
 - (void)testLastInstrumentDefaultIsSeededOnFirstLaunch {
     // viewDidLoad has run by the time tests execute, so the seed must exist.
     NSString *lastFile = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFile"];

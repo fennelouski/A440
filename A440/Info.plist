@@ -39,6 +39,15 @@
 					<string>A440SceneDelegate</string>
 				</dict>
 			</array>
+			<key>UIWindowSceneSessionRoleExternalDisplayNonInteractive</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>External Display</string>
+					<key>UISceneDelegateClassName</key>
+					<string>A440ExternalSceneDelegate</string>
+				</dict>
+			</array>
 		</dict>
 	</dict>
 	<key>UILaunchScreen</key>

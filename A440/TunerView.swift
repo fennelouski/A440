@@ -3,6 +3,8 @@ import AVFoundation
 
 @MainActor
 @objc final class TonePlayer: NSObject, ObservableObject {
+    /// One player shared by the phone UI and the AirPlay/external display, so both stay in sync.
+    static let shared = TonePlayer()
     @Published @objc private(set) var activeInstrument = -1
     @Published var errorMessage: String?
     private var player: AVAudioPlayer?
@@ -79,7 +81,7 @@ private struct InstrumentArtwork: UIViewRepresentable {
 }
 
 struct TunerView: View {
-    @StateObject private var audio = TonePlayer()
+    @ObservedObject private var audio = TonePlayer.shared
     @AppStorage("legacyDesign") private var legacy = false
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var typeSize
@@ -197,6 +199,68 @@ struct TunerView: View {
 }
 
 #if os(iOS)
+/// What an AirPlay/external screen shows: the same state as the phone, laid out to fill that screen's aspect ratio.
+struct ExternalDisplayView: View {
+    @ObservedObject private var audio = TonePlayer.shared
+    @AppStorage("legacyDesign") private var legacy = false
+    private let names = ["Piano", "Violin", "French Horn", "Sine Wave"]
+
+    var body: some View {
+        GeometryReader { geometry in
+            let size = geometry.size
+            let unit = min(size.width, size.height)
+            let pad = unit * 0.06
+            let gap = unit * 0.035
+            let headerHeight = unit * 0.16
+            let columns = size.width >= size.height ? 4 : 2
+            let rows = 4 / columns
+            let gridWidth = size.width - pad * 2
+            let gridHeight = size.height - pad * 2 - headerHeight - gap
+            // Cards keep a 4:5 shape and shrink to whichever dimension runs out first.
+            let cardWidth = min((gridWidth - gap * CGFloat(columns - 1)) / CGFloat(columns),
+                                (gridHeight - gap * CGFloat(rows - 1)) / CGFloat(rows) * 0.8)
+            let playing = audio.activeInstrument
+
+            VStack(spacing: gap) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("A440").font(.system(size: unit * 0.09, weight: .bold, design: .rounded))
+                    Spacer()
+                    Text(playing < 0 ? "Ready to tune" : "Playing \(names[playing])")
+                        .font(.system(size: unit * 0.045, weight: .semibold, design: .rounded))
+                    Text("· 440 Hz").monospacedDigit()
+                        .font(.system(size: unit * 0.045, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.secondary)
+                }
+                .frame(height: headerHeight)
+                LazyVGrid(columns: Array(repeating: GridItem(.fixed(cardWidth), spacing: gap), count: columns), spacing: gap) {
+                    ForEach(0..<4) { index in
+                        InstrumentArtwork(index: index, playing: playing == index, legacy: legacy)
+                            .frame(width: cardWidth, height: cardWidth * 1.25)
+                            .scaleEffect(playing == index ? 1.05 : 1)
+                            .opacity(playing < 0 || playing == index ? 1 : 0.5)
+                    }
+                }
+                .frame(maxHeight: .infinity)
+            }
+            .padding(pad)
+            .animation(.easeInOut(duration: 0.25), value: playing)
+        }
+        .foregroundStyle(Color.primary)
+        .background(LinearGradient(colors: [Color(uiColor: .a4BackgroundTop()), Color(uiColor: .a4BackgroundBottom())], startPoint: .top, endPoint: .bottom).ignoresSafeArea())
+    }
+}
+
+@objc(A440ExternalSceneDelegate) final class ExternalSceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options: UIScene.ConnectionOptions) {
+        guard let scene = scene as? UIWindowScene else { return }
+        let window = UIWindow(windowScene: scene)
+        window.rootViewController = UIHostingController(rootView: ExternalDisplayView())
+        window.isHidden = false
+        self.window = window
+    }
+}
+
 // Scene lifecycle: required on iOS 27, and the window tracks the scene's live size on iPhone Duo fold/unfold.
 @objc(A440SceneDelegate) final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
